@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>INMU KING 動画モニター（非公式ファンツール）</title>
+<style>
+  :root{
+    --bg:#121212; --panel:#1d1d1f; --panel2:#26262a; --line:#3a3a40;
+    --text:#f2f2f2; --sub:#b9b9c0; --red:#e60012; --red2:#ff2a3c;
+    --chip:#2c2c31;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;line-height:1.6}
+  a{color:#7db8ff}
+  .wrap{max-width:1180px;margin:0 auto;padding:20px 16px 64px}
+  header.site{padding:8px 0 4px}
+  header.site h1{font-size:26px;margin:0 0 4px}
+  header.site .lead{color:var(--sub);font-size:14px;margin:0}
+  .notice{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--sub);margin:14px 0 22px}
+  .notice strong{color:var(--text)}
+
+  /* ---------- 特設 ---------- */
+  .featured{border:2px solid var(--red);border-radius:14px;overflow:hidden;background:var(--panel);margin-bottom:28px}
+  .featured-banner{background:var(--red);color:#fff;font-weight:700;font-size:14px;padding:8px 14px;letter-spacing:.02em}
+  .featured-body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;padding:18px;align-items:start;min-width:0}
+  .featured-body>*{min-width:0}
+  .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden;align-self:start}
+  .player img{width:100%;height:100%;object-fit:cover;display:block}
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .playbtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:48px;border:0;border-radius:12px;background:rgba(230,0,18,.92);cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .playbtn::before{content:"";border-style:solid;border-width:10px 0 10px 17px;border-color:transparent transparent transparent #fff;margin-left:3px}
+  .playbtn:hover{background:var(--red2)}
+  .featured-info h2{font-size:21px;margin:2px 0 8px;line-height:1.45;overflow-wrap:anywhere}
+  .featured-info .meta{font-size:13px;color:var(--sub);margin:0 0 12px}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+  .stat{background:var(--panel2);border-radius:10px;padding:8px 14px;min-width:96px}
+  .stat .num{font-size:19px;font-weight:700}
+  .stat .lbl{font-size:11px;color:var(--sub)}
+  .featured-info .desc{font-size:13px;color:var(--sub);white-space:pre-wrap;overflow-wrap:anywhere;background:var(--panel2);border-radius:10px;padding:12px 14px;margin:0 0 12px}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:9px 16px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--panel2)}
+  .btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+  .chartbox{border-top:1px solid var(--line);padding:14px 18px 18px}
+  .chartbox h3{margin:0 0 4px;font-size:15px}
+  .chartbox .growth{font-size:13px;color:var(--sub);margin:0 0 8px}
+  .chartbox .growth b{color:#ffb3ba}
+  #chart{width:100%;display:block}
+  @media (max-width:860px){
+    .featured-body{grid-template-columns:minmax(0,1fr)}
+    .chartbox{padding:12px}
+  }
+
+  /* ---------- 状況・ツールバー ---------- */
+  .statusbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 14px;font-size:14px}
+  .chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+  .chip.new{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 6px}
+  .toolbar .group{display:flex;gap:6px;flex-wrap:wrap}
+  .tbtn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;cursor:pointer}
+  .tbtn.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
+  .toolbar input[type="search"]{background:var(--panel2);border:1px solid var(--line);border-radius:999px;color:var(--text);padding:7px 14px;font-size:13px;min-width:200px;flex:1}
+  .count{font-size:13px;color:var(--sub);margin:6px 0 14px}
+
+  /* ---------- カード ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .card .thumb{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+  .card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .card .thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .card .playbtn{width:52px;height:38px;border-radius:9px}
+  .badge-new{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;letter-spacing:.06em;z-index:2}
+  .badge-plat{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11px;padding:2px 8px;border-radius:6px;z-index:2}
+  .card .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
+  .card .title{font-size:14px;font-weight:700;line-height:1.5;overflow-wrap:anywhere}
+  .card .title a{color:var(--text);text-decoration:none}
+  .card .title a:hover{text-decoration:underline}
+  .card .meta{font-size:12px;color:var(--sub);overflow-wrap:anywhere}
+  .card .nums{font-size:12px;color:var(--sub);margin-top:auto}
+  .card .nums b{color:var(--text)}
+  footer.site{margin-top:44px;font-size:12px;color:var(--sub);border-top:1px solid var(--line);padding-top:14px}
+  .err{background:#3a1416;border:1px solid var(--red);border-radius:10px;padding:14px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <h1>INMU KING 動画モニター</h1>
+    <p class="lead">ニコニコ動画とYouTubeから、タイトルに「INMU KING」を含む動画を自動収集して追うモニターです。</p>
+  </header>
+
+  <div class="notice">
+    これは <strong>非公式ファンツール</strong> です。公式（やじゅまん／YAJU-MC）とは関係ありません。
+    データは <span id="updatedAt">読み込み中…</span> 時点のものです。<strong>15分ごとに自動更新されます。</strong>
+    再生は各サービスの公式埋め込みプレイヤー／リンク経由です。
+  </div>
+
+  <div id="app"><p>データを読み込んでいます…</p></div>
+
+  <footer class="site">
+    <p>収集条件：タイトルに INMU KING / INMU_KING / INMUKING を含む動画のみ（タグ・説明文の一致は採用していません）。
+    本ページは非公式ファンツールです。動画の権利は各投稿者・権利者に帰属します。</p>
+  </footer>
+</div>
+
+<script>
+"use strict";
+const $ = (sel, el) => (el || document).querySelector(sel);
+const fmt = n => (n == null ? "—" : Number(n).toLocaleString("ja-JP"));
+const fmtDate = ms => new Intl.DateTimeFormat("ja-JP", {timeZone:"Asia/Tokyo", year:"numeric", month:"numeric", day:"numeric", hour:"2-digit", minute:"2-digit"}).format(new Date(ms));
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+let DATA = null, HISTORY = [];
+let state = {sort:"new", platform:"all", query:""};
+
+function embedUrl(v){
+  const [p, id] = v;
+  return p === "youtube" ? "https://www.youtube.com/embed/" + id + "?autoplay=1&rel=0"
+                         : "https://embed.nicovideo.jp/watch/" + id;
+}
+function mountPlayer(container, v){
+  container.innerHTML = "";
+  const ifr = document.createElement("iframe");
+  ifr.src = embedUrl(v);
+  ifr.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+  ifr.setAttribute("allow", "accelerometer; autoplay; encrypted-media; picture-in-picture");
+  ifr.setAttribute("allowfullscreen", "");
+  ifr.title = "動画プレイヤー";
+  container.appendChild(ifr);
+}
+function thumbHTML(v, isNew){
+  const [p, id, title, , , , , th] = v;
+  return `<img loading="lazy" src="${esc(th)}" alt="">`
+    + (isNew ? `<span class="badge-new">NEW</span>` : "")
+    + `<span class="badge-plat">${p === "youtube" ? "YouTube" : "ニコニコ"}</span>`
+    + `<button class="playbtn" type="button" aria-label="再生"></button>`;
+}
+function wireThumb(container, v){
+  const btn = $(".playbtn", container);
+  if (btn) btn.addEventListener("click", () => mountPlayer(container, v));
+}
+
+/* ---------------- 特設グラフ ---------------- */
+function drawChart(){
+  const svg = $("#chart");
+  if (!svg || HISTORY.length < 2) return;
+  const Wpx = svg.clientWidth || svg.parentElement.clientWidth || 340;
+  const mobile = Wpx < 620;
+  const W = mobile ? Math.round(Wpx) : 760;
+  const H = mobile ? 480 : 308;
+  const padL = mobile ? 52 : 58, padR = 14, padT = 16, padB = 30;
+  const iw = W - padL - padR, ih = H - padT - padB;
+  const vs = HISTORY.map(p => p[1]);
+  let min = Math.min(...vs), max = Math.max(...vs);
+  const span = (max - min) || 1;
+  min = Math.max(0, min - span * 0.08); max = max + span * 0.08;
+  const t0 = HISTORY[0][0], t1 = HISTORY[HISTORY.length - 1][0];
+  const X = t => padL + (t1 === t0 ? 0 : (t - t0) / (t1 - t0)) * iw;
+  const Y = v => padT + (1 - (v - min) / (max - min)) * ih;
+  const fsize = mobile ? 13.5 : 11;
+  let s = "";
+  for (let i = 0; i <= 4; i++){
+    const v = min + (max - min) * i / 4, y = Y(v);
+    s += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#3a3a40" stroke-width="1"/>`
+       + `<text x="${padL - 6}" y="${y + 4}" fill="#b9b9c0" font-size="${fsize}" text-anchor="end">${esc(fmtShort(v))}</text>`;
+  }
+  const labelIdx = mobile ? [0, Math.floor(HISTORY.length / 2), HISTORY.length - 1]
+                          : [0, Math.floor(HISTORY.length * 0.33), Math.floor(HISTORY.length * 0.66), HISTORY.length - 1];
+  for (const i of [...new Set(labelIdx)]){
+    const t = new Date(HISTORY[i][0]);
+    const lbl = (t.getMonth() + 1) + "/" + t.getDate();
+    s += `<text x="${X(HISTORY[i][0])}" y="${H - 8}" fill="#b9b9c0" font-size="${fsize}" text-anchor="middle">${lbl}</text>`;
+  }
+  const pts = HISTORY.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+  s += `<polyline points="${pts}" fill="none" stroke="#ff2a3c" stroke-width="${mobile ? 3.5 : 2.5}" stroke-linejoin="round"/>`;
+  for (const p of HISTORY){
+    s += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${mobile ? 3.4 : 2.4}" fill="#ff2a3c"><title>${esc(fmtDate(p[0]))}：${fmt(p[1])}回</title></circle>`;
+  }
+  const last = HISTORY[HISTORY.length - 1];
+  s += `<text x="${Math.min(X(last[0]), W - padR)}" y="${Math.max(Y(last[1]) - 10, fsize + 2)}" fill="#fff" font-size="${mobile ? 17 : 13}" font-weight="700" text-anchor="end">${fmt(last[1])}回</text>`;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.innerHTML = s;
+}
+function fmtShort(v){
+  if (v >= 10000) return (Math.round(v / 1000) / 10) + "万";
+  return String(Math.round(v));
+}
+let resizeTimer = null;
+window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(drawChart, 150); });
+
+/* ---------------- 一覧 ---------------- */
+function renderList(){
+  const list = $("#list"), count = $("#count");
+  if (!list) return;
+  let rows = DATA.videos.slice();
+  if (state.platform !== "all") rows = rows.filter(v => v[0] === state.platform);
+  if (state.query) rows = rows.filter(v => v[2].toLowerCase().includes(state.query.toLowerCase()));
+  if (state.sort === "new") rows.sort((a, b) => b[6] - a[6]);
+  else if (state.sort === "old") rows.sort((a, b) => a[6] - b[6]);
+  else rows.sort((a, b) => b[4] - a[4]);
+  count.textContent = `全${fmt(DATA.total)}件中 ${fmt(rows.length)}件を表示`;
+  const newSet = new Set(DATA.newKeys || []);
+  list.innerHTML = rows.map(v => {
+    const isNew = newSet.has(v[0] + ":" + v[1]);
+    return `<article class="card">
+      <div class="thumb" data-v="${esc(v[0] + ":" + v[1])}">${thumbHTML(v, isNew)}</div>
+      <div class="body">
+        <div class="title"><a href="${esc(v[8])}" target="_blank" rel="noopener">${esc(v[2])}</a></div>
+        <div class="meta">${esc(v[3] || "")}${v[3] ? " ／ " : ""}${esc(fmtDate(v[6]))}</div>
+        <div class="nums">再生 <b>${fmt(v[4])}</b> ／ 高評価 <b>${fmt(v[5])}</b></div>
+      </div>
+    </article>`;
+  }).join("");
+  const byKey = new Map(DATA.videos.map(v => [v[0] + ":" + v[1], v]));
+  list.querySelectorAll(".thumb").forEach(el => {
+    const v = byKey.get(el.dataset.v);
+    if (v) wireThumb(el, v);
+  });
+}
+
+/* ---------------- 描画 ---------------- */
+function render(){
+  const f = DATA.featured;
+  const newCount = (DATA.newKeys || []).length;
+  const growth = HISTORY.length ? (HISTORY[HISTORY.length - 1][1] - HISTORY[0][1]) : 0;
+  const fv = ["youtube", f.videoId];
+  $("#app").innerHTML = `
+  <section class="featured">
+    <div class="featured-banner">速報特設　2026年11月8日 20:24 投稿 ―― 削除された本家YouTube版の修正版</div>
+    <div class="featured-body">
+      <div class="player" id="fplayer"><img src="${esc(f.thumbnailUrl)}" alt="">${`<button class="playbtn" type="button" aria-label="再生"></button>`}</div>
+      <div class="featured-info">
+        <h2>${esc(f.title)}</h2>
+        <p class="meta">投稿者：<a href="${esc(f.channelUrl)}" target="_blank" rel="noopener">${esc(f.authorName)}</a>（YAJU-MC 公式サブチャンネル）／ YouTube<br>
+        投稿日時：${esc(fmtDate(f.publishedAt))}（JST）</p>
+        <div class="stats">
+          <div class="stat"><div class="num">${fmt(f.viewCount)}</div><div class="lbl">再生数</div></div>
+          <div class="stat"><div class="num">${fmt(f.likeCount)}</div><div class="lbl">高評価</div></div>
+          <div class="stat"><div class="num">${fmt(f.commentCount)}</div><div class="lbl">コメント</div></div>
+        </div>
+        <p class="desc">${esc(f.description || "")}</p>
+        <div class="btnrow">
+          <a class="btn primary" href="${esc(f.watchUrl)}" target="_blank" rel="noopener">▶ YouTubeで見る</a>
+          <a class="btn" href="${esc(f.originalNiconicoUrl)}" target="_blank" rel="noopener">本家をニコニコで見る</a>
+        </div>
+      </div>
+    </div>
+    <div class="chartbox">
+      <h3>再生数の推移</h3>
+      <p class="growth">記録開始（${HISTORY.length ? esc(fmtDate(HISTORY[0][0])) : "—"}）から <b>+${fmt(growth)}回</b> ／ 記録 ${fmt(HISTORY.length)}点</p>
+      <svg id="chart" role="img" aria-label="特設動画の再生数推移グラフ"></svg>
+    </div>
+  </section>
+
+  <div class="statusbar">
+    <span class="chip">収集総数 ${fmt(DATA.total)}件</span>
+    <span class="chip">YouTube ${fmt(DATA.youtube)}件</span>
+    <span class="chip">ニコニコ ${fmt(DATA.niconico)}件</span>
+    <span class="chip new">前回の公開から新着 ${fmt(newCount)}件</span>
+  </div>
+
+  <div class="toolbar">
+    <div class="group" id="sortGroup">
+      <button class="tbtn" data-sort="new" type="button">新しい順</button>
+      <button class="tbtn" data-sort="popular" type="button">人気順</button>
+      <button class="tbtn" data-sort="old" type="button">古い順</button>
+    </div>
+    <div class="group" id="platGroup">
+      <button class="tbtn" data-plat="all" type="button">全部</button>
+      <button class="tbtn" data-plat="youtube" type="button">YouTube</button>
+      <button class="tbtn" data-plat="niconico" type="button">ニコニコ</button>
+    </div>
+    <input type="search" id="q" placeholder="タイトル検索">
+  </div>
+  <p class="count" id="count"></p>
+  <p style="font-size:13px;color:var(--sub)">全${fmt(DATA.total)}件が検索・フィルタ・並び替えの対象です。サムネイルの再生ボタンで、その場で公式の埋め込みプレイヤーが開きます。</p>
+  <div class="grid" id="list"></div>`;
+
+  wireThumb($("#fplayer"), fv);
+  const syncBtns = () => {
+    document.querySelectorAll("#sortGroup .tbtn").forEach(b => b.classList.toggle("on", b.dataset.sort === state.sort));
+    document.querySelectorAll("#platGroup .tbtn").forEach(b => b.classList.toggle("on", b.dataset.plat === state.platform));
+  };
+  document.querySelectorAll("#sortGroup .tbtn").forEach(b => b.addEventListener("click", () => { state.sort = b.dataset.sort; syncBtns(); renderList(); }));
+  document.querySelectorAll("#platGroup .tbtn").forEach(b => b.addEventListener("click", () => { state.platform = b.dataset.plat; syncBtns(); renderList(); }));
+  $("#q").addEventListener("input", e => { state.query = e.target.value; renderList(); });
+  syncBtns();
+  renderList();
+  drawChart();
+}
+
+Promise.all([
+  fetch("data.json", {cache: "no-store"}).then(r => { if (!r.ok) throw new Error("data.json " + r.status); return r.json(); }),
+  fetch("history.json", {cache: "no-store"}).then(r => r.ok ? r.json() : []),
+]).then(([data, hist]) => {
+  DATA = data; HISTORY = hist || [];
+  $("#updatedAt").textContent = data.updatedAt || "";
+  render();
+}).catch(err => {
+  $("#app").innerHTML = `<div class="err">データの読み込みに失敗しました（${esc(err.message)}）。時間をおいて開き直してください。</div>`;
+});
+</script>
+</body>
+</html>
