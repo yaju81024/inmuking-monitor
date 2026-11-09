@@ -1,10 +1,53 @@
 {
- "updatedAt": "2026-11-09 23:04 JST",
- "updatedAtMs": 1794233040000,
- "total": 702,
+ "updatedAt": "2026-11-10 01:47 JST",
+ "updatedAtMs": 1794242847198,
+ "total": 744,
  "youtube": 466,
- "niconico": 236,
- "newKeys": [],
+ "niconico": 278,
+ "newKeys": [
+  "niconico:sm46675088",
+  "niconico:sm46677603",
+  "niconico:sm46678485",
+  "niconico:sm46680823",
+  "niconico:sm46686215",
+  "niconico:sm46688230",
+  "niconico:sm46690738",
+  "niconico:sm46699517",
+  "niconico:sm46705487",
+  "niconico:sm46708351",
+  "niconico:sm46711162",
+  "niconico:sm46713869",
+  "niconico:sm46715224",
+  "niconico:sm46717657",
+  "niconico:sm46725301",
+  "niconico:sm46731788",
+  "niconico:sm46735075",
+  "niconico:sm46735300",
+  "niconico:sm46741482",
+  "niconico:sm46747009",
+  "niconico:sm46758998",
+  "niconico:sm46761973",
+  "niconico:sm46768458",
+  "niconico:sm46774309",
+  "niconico:sm46776695",
+  "niconico:sm46777830",
+  "niconico:sm46778709",
+  "niconico:sm46778730",
+  "niconico:sm46779030",
+  "niconico:sm46794192",
+  "niconico:sm46808572",
+  "niconico:sm46829254",
+  "niconico:sm46833819",
+  "niconico:sm46840513",
+  "niconico:sm46848684",
+  "niconico:sm46853566",
+  "niconico:sm46867777",
+  "niconico:sm46913189",
+  "niconico:sm46971361",
+  "niconico:ss46673170",
+  "niconico:ss46838206",
+  "niconico:ss46970331"
+ ],
  "featured": {
   "videoId": "RkcI7ase0H0",
   "title": "【MV】INMU KING（修正版）/ YAJU-MC",
@@ -2991,6 +3034,28 @@
    "https://www.youtube.com/watch?v=oyIBsaD_ji0"
   ],
   [
+   "niconico",
+   "sm46713869",
+   "2拍目と4拍目が入れ替わったINMU KING",
+   null,
+   19658,
+   573,
+   1787480999000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46713869/46713869.93370231",
+   "https://www.nicovideo.jp/watch/sm46713869"
+  ],
+  [
+   "niconico",
+   "sm46688230",
+   "【ニコニコ動画】INMU KING 全コメント動画（57000コメ）",
+   null,
+   19616,
+   199,
+   1787113356000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46688230/46688230.5649591",
+   "https://www.nicovideo.jp/watch/sm46688230"
+  ],
+  [
    "youtube",
    "wmK6Xh2658c",
    "YAJU-MCへの最大級のリスペクトを込めて。#INMUKING #野獣先輩#trombone #吹奏楽 #トロンボーン",
@@ -3000,6 +3065,28 @@
    1794129027000,
    "https://i.ytimg.com/vi/wmK6Xh2658c/hqdefault.jpg",
    "https://www.youtube.com/watch?v=wmK6Xh2658c"
+  ],
+  [
+   "niconico",
+   "sm46717657",
+   "INMU KING (Future Bass Ver).AI",
+   null,
+   19327,
+   563,
+   1787560722000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46717657/46717657.29579380",
+   "https://www.nicovideo.jp/watch/sm46717657"
+  ],
+  [
+   "niconico",
+   "sm46848684",
+   "お前やりませんねスギ【INMU KING同人】",
+   null,
+   18520,
+   149,
+   1790390978000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46848684/46848684.92555943",
+   "https://www.nicovideo.jp/watch/sm46848684"
   ],
   [
    "youtube",
@@ -3013,6 +3100,17 @@
    "https://www.youtube.com/watch?v=o_Tkp5odcLg"
   ],
   [
+   "niconico",
+   "sm46680823",
+   "【4万コメ】INMU KING / YAJU-MC",
+   null,
+   17819,
+   211,
+   1786948935000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46680823/46680823.63405448",
+   "https://www.nicovideo.jp/watch/sm46680823"
+  ],
+  [
    "youtube",
    "pCbZV-gF_lU",
    "台湾の高校生 新入生歓迎会で「INMU KING」「HOT LIMIT」を披露",
@@ -3022,6 +3120,39 @@
    1793587334000,
    "https://i.ytimg.com/vi/pCbZV-gF_lU/hqdefault.jpg",
    "https://www.youtube.com/watch?v=pCbZV-gF_lU"
+  ],
+  [
+   "niconico",
+   "sm46686215",
+   "何がINMU KINGだよこちとらデビュー5日目でINMU QUEENだ馬鹿野郎",
+   null,
+   17459,
+   686,
+   1787061595000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46686215/46686215.34252140",
+   "https://www.nicovideo.jp/watch/sm46686215"
+  ],
+  [
+   "niconico",
+   "sm46711162",
+   "INMU KING/宮舞モカ",
+   null,
+   17405,
+   249,
+   1787444616000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46711162/46711162.92598295",
+   "https://www.nicovideo.jp/watch/sm46711162"
+  ],
+  [
+   "niconico",
+   "sm46794192",
+   "INMU KING (Wakatte TV)",
+   null,
+   17222,
+   99,
+   1789231028000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46794192/46794192.58753934",
+   "https://www.nicovideo.jp/watch/sm46794192"
   ],
   [
    "youtube",
@@ -3036,6 +3167,17 @@
   ],
   [
    "niconico",
+   "sm46678485",
+   "INMU KING(修整版)",
+   null,
+   16002,
+   89,
+   1786885721000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46678485/46678485.9207350",
+   "https://www.nicovideo.jp/watch/sm46678485"
+  ],
+  [
+   "niconico",
    "sm46928843",
    "【INMUKING】DEMON KING【鬼滅の刃】",
    null,
@@ -3044,6 +3186,50 @@
    1792063486000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/46928843/46928843.89548679",
    "https://www.nicovideo.jp/watch/sm46928843"
+  ],
+  [
+   "niconico",
+   "ss46673170",
+   "INMU KINGとUNDEAD 相性良い説",
+   null,
+   15291,
+   505,
+   1786791444000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46673170/46673170.64525659",
+   "https://www.nicovideo.jp/watch/ss46673170"
+  ],
+  [
+   "niconico",
+   "sm46699517",
+   "重音テト「INMU KINGフルバージョン もうカラオケに入ってんじゃん」",
+   null,
+   15111,
+   307,
+   1787297034000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46699517/46699517.15076685",
+   "https://www.nicovideo.jp/watch/sm46699517"
+  ],
+  [
+   "niconico",
+   "sm46741482",
+   "ホモと見るINMU KING好きすぎてPCの前独占する猫",
+   null,
+   15073,
+   340,
+   1788085634000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46741482/46741482.42585624",
+   "https://www.nicovideo.jp/watch/sm46741482"
+  ],
+  [
+   "niconico",
+   "sm46708351",
+   "INMU KINGがTV番組だった世界（提供15秒尺+OP89秒尺）おまけもありますねぇ！",
+   null,
+   14962,
+   171,
+   1787393140000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46708351/46708351.40482878",
+   "https://www.nicovideo.jp/watch/sm46708351"
   ],
   [
    "youtube",
@@ -3091,6 +3277,28 @@
   ],
   [
    "niconico",
+   "sm46779030",
+   "INMU KING(オーケストラ)",
+   null,
+   13051,
+   265,
+   1789031400000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46779030/46779030.6642231",
+   "https://www.nicovideo.jp/watch/sm46779030"
+  ],
+  [
+   "niconico",
+   "sm46725301",
+   "【リズム天国】INMU KING",
+   null,
+   12686,
+   349,
+   1787743329000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46725301/46725301.69878462",
+   "https://www.nicovideo.jp/watch/sm46725301"
+  ],
+  [
+   "niconico",
    "sm46863014",
    "INMU_KING撮影中に乱入される放送事故.24hTV",
    null,
@@ -3102,6 +3310,17 @@
   ],
   [
    "niconico",
+   "sm46833819",
+   "INMU KING - 歌ってみた＆演奏してみた＆踊ってみた",
+   null,
+   12445,
+   549,
+   1790251200000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46833819/46833819.56943838",
+   "https://www.nicovideo.jp/watch/sm46833819"
+  ],
+  [
+   "niconico",
    "sm46908483",
    "【音声のみ】INMUKING(出荷版)× INMUKING(最終選別ボツ版)【マッシュアップ】",
    null,
@@ -3110,6 +3329,17 @@
    1791621342000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/46908483/46908483.74610895",
    "https://www.nicovideo.jp/watch/sm46908483"
+  ],
+  [
+   "niconico",
+   "sm46677603",
+   "下北沢に住んでるピアノやってる奴【INMU KING AI Arrange】",
+   null,
+   11598,
+   237,
+   1786875210000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46677603/46677603.92402045",
+   "https://www.nicovideo.jp/watch/sm46677603"
   ],
   [
    "niconico",
@@ -3145,6 +3375,28 @@
    "https://www.youtube.com/watch?v=yEN683uvDXs"
   ],
   [
+   "niconico",
+   "sm46778709",
+   "INMU KING(電波ソング)",
+   null,
+   10846,
+   120,
+   1788945000000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46778709/46778709.56339427",
+   "https://www.nicovideo.jp/watch/sm46778709"
+  ],
+  [
+   "niconico",
+   "sm46675088",
+   "INMU KING×フレッシュプリキュアED 比較",
+   null,
+   10626,
+   128,
+   1786833235000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46675088/46675088.33974776",
+   "https://www.nicovideo.jp/watch/sm46675088"
+  ],
+  [
    "youtube",
    "0zEZXokLaPM",
    "ライブ風音響でINMU KINGを聴こう",
@@ -3154,6 +3406,17 @@
    1794051431000,
    "https://i.ytimg.com/vi/0zEZXokLaPM/hqdefault.jpg",
    "https://www.youtube.com/watch?v=0zEZXokLaPM"
+  ],
+  [
+   "niconico",
+   "sm46761973",
+   "INMU KING / 南アフリカ風アレンジ",
+   null,
+   10400,
+   150,
+   1788545254000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46761973/46761973.28923774",
+   "https://www.nicovideo.jp/watch/sm46761973"
   ],
   [
    "youtube",
@@ -3178,6 +3441,61 @@
    "https://www.youtube.com/watch?v=NFu7Vc2rTys"
   ],
   [
+   "niconico",
+   "sm46735075",
+   "INMU KING India",
+   null,
+   9338,
+   164,
+   1787971932000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46735075/46735075.78552545",
+   "https://www.nicovideo.jp/watch/sm46735075"
+  ],
+  [
+   "niconico",
+   "sm46913189",
+   "INMU KING(八田與一(悪))",
+   null,
+   9270,
+   130,
+   1791712893000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46913189/46913189.68225011",
+   "https://www.nicovideo.jp/watch/sm46913189"
+  ],
+  [
+   "niconico",
+   "sm46853566",
+   "ローカルでつくるINMU KING作成講座",
+   null,
+   9163,
+   309,
+   1790484132000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46853566/46853566.49029818",
+   "https://www.nicovideo.jp/watch/sm46853566"
+  ],
+  [
+   "niconico",
+   "sm46768458",
+   "INMU KING(ヴィジュアル系)",
+   null,
+   9049,
+   196,
+   1788685800000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46768458/46768458.36046933",
+   "https://www.nicovideo.jp/watch/sm46768458"
+  ],
+  [
+   "niconico",
+   "sm46808572",
+   "INMU KING English ver(Fanmade)",
+   null,
+   9025,
+   150,
+   1789566062000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46808572/46808572.95857721",
+   "https://www.nicovideo.jp/watch/sm46808572"
+  ],
+  [
    "youtube",
    "jxShjdcA9Jo",
    "INMU KINGをピアノで弾いてみよう【簡単ゆっくり】",
@@ -3189,6 +3507,39 @@
    "https://www.youtube.com/watch?v=jxShjdcA9Jo"
   ],
   [
+   "niconico",
+   "sm46829254",
+   "【宮舞モカ】INMU KING English Version【Synthesizer V Cover】",
+   null,
+   8565,
+   130,
+   1790005643000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46829254/46829254.74787208",
+   "https://www.nicovideo.jp/watch/sm46829254"
+  ],
+  [
+   "niconico",
+   "sm46747009",
+   "INMU KING / HIP-HOPアレンジ",
+   null,
+   8231,
+   85,
+   1788188734000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46747009/46747009.57325678",
+   "https://www.nicovideo.jp/watch/sm46747009"
+  ],
+  [
+   "niconico",
+   "sm46840513",
+   "【ヤニねこ】INMU KING / ヤニねこver【野獣先輩】",
+   null,
+   8055,
+   65,
+   1790247600000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46840513/46840513.75950029",
+   "https://www.nicovideo.jp/watch/sm46840513"
+  ],
+  [
    "youtube",
    "PFnzvgInHNo",
    "inmu kingの力を借りました...",
@@ -3198,6 +3549,28 @@
    1794119400000,
    "https://i.ytimg.com/vi/PFnzvgInHNo/hqdefault.jpg",
    "https://www.youtube.com/watch?v=PFnzvgInHNo"
+  ],
+  [
+   "niconico",
+   "sm46777830",
+   "INMU KING feat.四国めたん",
+   null,
+   7800,
+   381,
+   1788873218000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46777830/46777830.91076750",
+   "https://www.nicovideo.jp/watch/sm46777830"
+  ],
+  [
+   "niconico",
+   "sm46715224",
+   "INMU KING 淫夢王 / 中国語 Version",
+   null,
+   7461,
+   274,
+   1787496769000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46715224/46715224.82196108",
+   "https://www.nicovideo.jp/watch/sm46715224"
   ],
   [
    "niconico",
@@ -3222,6 +3595,17 @@
    "https://www.nicovideo.jp/watch/sm46961336"
   ],
   [
+   "niconico",
+   "ss46970331",
+   "ホモと見る配信中にINMU KINGを歌うAIひろゆき",
+   null,
+   7343,
+   21,
+   1793028470000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46970331/46970331.75735718",
+   "https://www.nicovideo.jp/watch/ss46970331"
+  ],
+  [
    "youtube",
    "Kj5RLqU1wfQ",
    "ねねちん追いかけてすかされる【MONTAGEM INMU KING】 #クレヨンしんちゃん #アニメ #おもしろ #バズれ #shorts",
@@ -3233,6 +3617,17 @@
    "https://www.youtube.com/watch?v=Kj5RLqU1wfQ"
   ],
   [
+   "niconico",
+   "sm46867777",
+   "INMU KING （東京大学ver）",
+   null,
+   7164,
+   63,
+   1790777815000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46867777/46867777.70852149",
+   "https://www.nicovideo.jp/watch/sm46867777"
+  ],
+  [
    "youtube",
    "5uHD-HlIM24",
    "INMU KINGについてぼくが今思っていること",
@@ -3242,6 +3637,17 @@
    1793740692000,
    "https://i.ytimg.com/vi/5uHD-HlIM24/hqdefault.jpg",
    "https://www.youtube.com/watch?v=5uHD-HlIM24"
+  ],
+  [
+   "niconico",
+   "sm46774309",
+   "INMU KING 多言語サビメドレー",
+   null,
+   7123,
+   122,
+   1788789358000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46774309/46774309.9483078",
+   "https://www.nicovideo.jp/watch/sm46774309"
   ],
   [
    "niconico",
@@ -3267,6 +3673,17 @@
   ],
   [
    "niconico",
+   "ss46838206",
+   "INMU KING 叩いてみた（ショートver）",
+   null,
+   6671,
+   170,
+   1790586000000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46838206/46838206.1808726",
+   "https://www.nicovideo.jp/watch/ss46838206"
+  ],
+  [
+   "niconico",
    "sm46849326",
    "【野獣先輩】INMU＿KING　クラシックアレンジ【いきすぎやまこういち】",
    null,
@@ -3288,6 +3705,39 @@
    "https://www.nicovideo.jp/watch/sm47001567"
   ],
   [
+   "niconico",
+   "sm46705487",
+   "YAJU-MCゴースト【INMU KING×JUNGLE FIRE】feat. MOTSU",
+   null,
+   6257,
+   127,
+   1787347079000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46705487/46705487.12597799",
+   "https://www.nicovideo.jp/watch/sm46705487"
+  ],
+  [
+   "niconico",
+   "sm46690738",
+   "INMU KING(Fancy Dress Mashup)",
+   null,
+   6250,
+   130,
+   1787148824000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46690738/46690738.70507057",
+   "https://www.nicovideo.jp/watch/sm46690738"
+  ],
+  [
+   "niconico",
+   "sm46776695",
+   "INMU KING(ジャニ系)",
+   null,
+   6137,
+   105,
+   1788858600000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46776695/46776695.73510762",
+   "https://www.nicovideo.jp/watch/sm46776695"
+  ],
+  [
    "youtube",
    "pHcHux5duRY",
    "【INMUKING】マイクラのランプだけで再現してみた #inmuking #shorts #minecraft #マインクラフト #マイクラ",
@@ -3299,6 +3749,28 @@
    "https://www.youtube.com/watch?v=pHcHux5duRY"
   ],
   [
+   "niconico",
+   "sm46735300",
+   "2拍目と4拍目が消滅したINMU KING",
+   null,
+   6065,
+   134,
+   1787999400000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46735300/46735300.20775806",
+   "https://www.nicovideo.jp/watch/sm46735300"
+  ],
+  [
+   "niconico",
+   "sm46731788",
+   "INMU KINNIKU / INMU KING",
+   null,
+   6057,
+   132,
+   1787901358000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46731788/46731788.2371839",
+   "https://www.nicovideo.jp/watch/sm46731788"
+  ],
+  [
    "youtube",
    "QlDmXoHaQmE",
    "INMU KING再生数アスレ【Minecraft】",
@@ -3308,6 +3780,39 @@
    1793955633000,
    "https://i.ytimg.com/vi/QlDmXoHaQmE/hqdefault.jpg",
    "https://www.youtube.com/watch?v=QlDmXoHaQmE"
+  ],
+  [
+   "niconico",
+   "sm46971361",
+   "お前暴動起こしスギ(フランス□□) #ai INMU KING",
+   null,
+   5853,
+   246,
+   1793095200000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46971361/46971361.62634402",
+   "https://www.nicovideo.jp/watch/sm46971361"
+  ],
+  [
+   "niconico",
+   "sm46778730",
+   "INMU KING(ハロプロ)",
+   null,
+   5833,
+   66,
+   1788995400000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46778730/46778730.55165297",
+   "https://www.nicovideo.jp/watch/sm46778730"
+  ],
+  [
+   "niconico",
+   "sm46758998",
+   "【MMDモーショントレース】初音ミクがまた、INMU KINGを踊るぜ？【配布あり】.full",
+   null,
+   5811,
+   128,
+   1788517140000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46758998/46758998.26853325",
+   "https://www.nicovideo.jp/watch/sm46758998"
   ],
   [
    "niconico",
