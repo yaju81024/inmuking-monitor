@@ -66,6 +66,26 @@ def http_get_json(url, params=None, headers=None, timeout=30):
         return json.load(resp)
 
 
+def http_get_json_youtube(url, params=None, attempts=4):
+    """YouTube API 専用: 429（レート制限）のときは間隔を空けて再試行する。
+
+    GitHub Actions の共有IPからは検索系が 429 を返しやすい。数十秒空けると
+    通ることがあるため、指数バックオフで最大 attempts 回まで試す。
+    """
+    last_err = None
+    for i in range(attempts):
+        try:
+            return http_get_json(url, params)
+        except urllib.error.HTTPError as e:
+            last_err = e
+            if e.code != 429 or i == attempts - 1:
+                raise
+            wait = 20 * (2 ** i)
+            print("YouTube HTTP 429; retrying in %ds..." % wait, flush=True)
+            time.sleep(wait)
+    raise last_err
+
+
 def iso_to_ms(text):
     # "2026-08-10T00:00:00+09:00" や YouTube の "2026-11-08T11:24:15Z" に対応
     dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
@@ -126,12 +146,13 @@ def fetch_youtube(api_key, orders):
                 "maxResults": 50,
                 "key": api_key,
             }
-            res = http_get_json(YOUTUBE_API + "/search", params)
+            res = http_get_json_youtube(YOUTUBE_API + "/search", params)
             for item in res.get("items", []):
                 vid = item["id"]["videoId"]
                 if vid not in seen:
                     seen.add(vid)
                     ids.append(vid)
+            time.sleep(2)  # 検索を連続で叩かない（レート制限対策）
     found = {}
     for i in range(0, len(ids), 50):
         chunk = ids[i:i + 50]
@@ -140,7 +161,7 @@ def fetch_youtube(api_key, orders):
             "id": ",".join(chunk),
             "key": api_key,
         }
-        res = http_get_json(YOUTUBE_API + "/videos", params)
+        res = http_get_json_youtube(YOUTUBE_API + "/videos", params)
         for item in res.get("items", []):
             snip = item.get("snippet", {})
             title = snip.get("title", "")
@@ -169,7 +190,7 @@ def fetch_featured(api_key):
         "id": FEATURED_VIDEO_ID,
         "key": api_key,
     }
-    res = http_get_json(YOUTUBE_API + "/videos", params)
+    res = http_get_json_youtube(YOUTUBE_API + "/videos", params)
     items = res.get("items", [])
     if not items:
         raise RuntimeError("featured video not found: " + FEATURED_VIDEO_ID)
