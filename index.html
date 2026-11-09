@@ -47,7 +47,12 @@
   .chartbox h3{margin:0 0 4px;font-size:15px}
   .chartbox .growth{font-size:13px;color:var(--sub);margin:0 0 8px}
   .chartbox .growth b{color:#ffb3ba}
-  #chart{width:100%;display:block}
+  #chart{width:100%;display:block;touch-action:pan-y;cursor:crosshair}
+  .chartwrap{position:relative}
+  #charttip{position:absolute;display:none;pointer-events:none;background:rgba(12,12,16,.95);border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-size:12.5px;line-height:1.55;color:var(--text);z-index:5;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+  #charttip .tt-time{color:var(--sub);font-size:12px}
+  #charttip .tt-views{font-size:16px;font-weight:800}
+  .charthint{font-size:12px;color:var(--sub);margin:8px 0 0}
   @media (max-width:860px){
     .featured-body{grid-template-columns:minmax(0,1fr)}
     .chartbox{padding:12px}
@@ -143,19 +148,21 @@ function wireThumb(container, v){
 }
 
 /* ---------------- 特設グラフ ---------------- */
+let CHART = null;
 function drawChart(){
   const svg = $("#chart");
   if (!svg || HISTORY.length < 2) return;
   const Wpx = svg.clientWidth || svg.parentElement.clientWidth || 340;
   const mobile = Wpx < 620;
   const W = mobile ? Math.round(Wpx) : 760;
-  const H = mobile ? 480 : 308;
+  const H = mobile ? Math.max(300, Math.min(380, Math.round(W * 1.02))) : 308;
   const padL = mobile ? 52 : 58, padR = 14, padT = 16, padB = 30;
   const iw = W - padL - padR, ih = H - padT - padB;
   const vs = HISTORY.map(p => p[1]);
   let min = Math.min(...vs), max = Math.max(...vs);
   const span = (max - min) || 1;
-  min = Math.max(0, min - span * 0.08); max = max + span * 0.08;
+  const padF = mobile ? 0.30 : 0.15;
+  min = Math.max(0, min - span * padF); max = max + span * padF;
   const t0 = HISTORY[0][0], t1 = HISTORY[HISTORY.length - 1][0];
   const X = t => padL + (t1 === t0 ? 0 : (t - t0) / (t1 - t0)) * iw;
   const Y = v => padT + (1 - (v - min) / (max - min)) * ih;
@@ -180,12 +187,56 @@ function drawChart(){
   }
   const last = HISTORY[HISTORY.length - 1];
   s += `<text x="${Math.min(X(last[0]), W - padR)}" y="${Math.max(Y(last[1]) - 10, fsize + 2)}" fill="#fff" font-size="${mobile ? 17 : 13}" font-weight="700" text-anchor="end">${fmt(last[1])}回</text>`;
+  s += `<g id="chartmark"></g>`;
+  CHART = {W, H, padT, padB, mobile, X, Y};
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
   svg.innerHTML = s;
+  const tip0 = $("#charttip"); if (tip0) tip0.style.display = "none";
 }
 function fmtShort(v){
   if (v >= 10000) return (Math.round(v / 1000) / 10) + "万";
   return String(Math.round(v));
+}
+function wireChart(){
+  const svg = $("#chart"), tip = $("#charttip");
+  if (!svg || !tip) return;
+  const move = ev => {
+    if (!CHART || HISTORY.length < 2) return;
+    const rect = svg.getBoundingClientRect();
+    if (!rect.width) return;
+    const x = (ev.clientX - rect.left) * (CHART.W / rect.width);
+    let best = 0, bd = Infinity;
+    for (let i = 0; i < HISTORY.length; i++){
+      const d = Math.abs(CHART.X(HISTORY[i][0]) - x);
+      if (d < bd){ bd = d; best = i; }
+    }
+    const p = HISTORY[best];
+    const cx = CHART.X(p[0]), cy = CHART.Y(p[1]);
+    const mark = svg.querySelector("#chartmark");
+    if (mark) mark.innerHTML =
+      `<line x1="${cx}" y1="${CHART.padT}" x2="${cx}" y2="${CHART.H - CHART.padB}" stroke="#ffffff" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>` +
+      `<circle cx="${cx}" cy="${cy}" r="${CHART.mobile ? 6.5 : 5}" fill="#ff2a3c" stroke="#ffffff" stroke-width="2"/>`;
+    tip.innerHTML = `<div class="tt-time">${esc(fmtDate(p[0]))}</div>` +
+      `<div class="tt-views">${fmt(p[1])} 回</div>` +
+      `<div>高評価 ${fmt(p[2])} ／ コメント ${fmt(p[3])}</div>`;
+    tip.style.display = "block";
+    const wrap = svg.parentElement;
+    const px = svg.offsetLeft + (cx / CHART.W) * svg.clientWidth;
+    const py = svg.offsetTop + (cy / CHART.H) * svg.clientHeight;
+    tip.style.left = px + "px";
+    tip.style.top = py + "px";
+    const flip = px > wrap.clientWidth * 0.55;
+    tip.style.transform = `translate(${flip ? "calc(-100% - 12px)" : "12px"}, -50%)`;
+  };
+  const leave = () => {
+    tip.style.display = "none";
+    const m = svg.querySelector("#chartmark");
+    if (m) m.innerHTML = "";
+  };
+  svg.addEventListener("pointermove", move);
+  svg.addEventListener("pointerdown", move);
+  svg.addEventListener("pointerleave", leave);
+  svg.addEventListener("pointercancel", leave);
 }
 let resizeTimer = null;
 window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(drawChart, 150); });
@@ -250,7 +301,8 @@ function render(){
     <div class="chartbox">
       <h3>再生数の推移</h3>
       <p class="growth">記録開始（${HISTORY.length ? esc(fmtDate(HISTORY[0][0])) : "—"}）から <b>+${fmt(growth)}回</b> ／ 記録 ${fmt(HISTORY.length)}点</p>
-      <svg id="chart" role="img" aria-label="特設動画の再生数推移グラフ"></svg>
+      <div class="chartwrap"><svg id="chart" role="img" aria-label="特設動画の再生数推移グラフ"></svg><div id="charttip"></div></div>
+      <p class="charthint">グラフをタップ／なぞると、その時点の再生数・高評価・コメントが表示されます。</p>
     </div>
   </section>
 
@@ -289,6 +341,7 @@ function render(){
   syncBtns();
   renderList();
   drawChart();
+  wireChart();
 }
 
 Promise.all([
