@@ -15,7 +15,11 @@ Python標準ライブラリのみで動作する（pip install 不要）。
     （大小文字は区別しない）。タグ・説明文の一致は採用しない。
   - 既存 data.json の動画は保持し、新しく取得したもので上書き・追加する
     （検索の窓から漏れた過去動画を失わないため）。
-  - 取得に失敗した場合は例外で終了し、ファイルは書き換えない。
+  - YouTube検索はクォータ節約のため間引く: 新着検索は約1時間に1回、
+    人気検索は約6時間に1回。特設の直接取得とニコニコ取得は毎回行う。
+  - YouTube取得に失敗した場合は警告して前回データを保持し、ニコニコ分
+    だけでも更新する。ニコニコ取得の失敗時は例外で終了し、ファイルは
+    書き換えない。
 """
 
 import json
@@ -42,6 +46,11 @@ YOUTUBE_API = "https://www.googleapis.com/youtube/v3"
 USER_AGENT = "inmu-king-monitor/1.0 (+https://github.com/)"
 
 JST = timezone(timedelta(hours=9))
+
+# YouTube検索の間引き間隔（クォータ節約）。検索は1回100ユニットと重いため、
+# 毎回は実行しない。特設の直接取得（1ユニット）とニコニコ取得は毎回行う。
+SEARCH_INTERVAL_MS = 60 * 60 * 1000        # 新着検索は約1時間に1回
+POPULAR_INTERVAL_MS = 6 * 60 * 60 * 1000   # 人気検索は約6時間に1回
 
 
 def title_matches(title):
@@ -99,12 +108,16 @@ def fetch_niconico():
 
 
 # ---------------------------------------------------------------- YouTube
-def fetch_youtube(api_key):
-    """search.list + videos.list から対象動画を取得し、videoId -> 配列 の辞書を返す。"""
+def fetch_youtube(api_key, orders):
+    """search.list + videos.list から対象動画を取得し、videoId -> 配列 の辞書を返す。
+
+    orders は ("date", "viewCount") のうち今回実行する分だけを渡す
+    （クォータ節約のため呼び出し側で間引く）。
+    """
     ids = []
     seen = set()
     for q in QUERIES:
-        for order in ("date", "viewCount"):
+        for order in orders:
             params = {
                 "part": "snippet",
                 "q": q,
@@ -213,27 +226,47 @@ def main():
     print("niconico fetched: %d" % len(nico))
 
     featured = old_data.get("featured") if old_data else None
+    last_search_ms = int(old_data.get("lastSearchMs", 0)) if old_data else 0
+    last_popular_ms = int(old_data.get("lastPopularMs", 0)) if old_data else 0
 
     # --- YouTube（キーが無い／失敗した場合は警告して続行する）
     if not api_key:
         print("WARNING: YOUTUBE_API_KEY is not set; skipping YouTube.", file=sys.stderr)
     else:
+        now_ms = int(time.time() * 1000)
+        orders = []
+        if now_ms - last_search_ms >= SEARCH_INTERVAL_MS:
+            orders.append("date")
+        if now_ms - last_popular_ms >= POPULAR_INTERVAL_MS:
+            orders.append("viewCount")
+        if orders:
+            try:
+                yt = fetch_youtube(api_key, orders)
+                for vid, row in yt.items():
+                    merged["youtube:" + vid] = row
+                print("youtube fetched: %d (orders: %s)" % (len(yt), ",".join(orders)))
+                if "date" in orders:
+                    last_search_ms = now_ms
+                if "viewCount" in orders:
+                    last_popular_ms = now_ms
+            except urllib.error.HTTPError as e:
+                # クォータ枯渇（403/429）など。ニコニコ分だけでも更新する。
+                print("WARNING: YouTube search failed (HTTP %s); keeping previous YouTube data." % e.code, file=sys.stderr)
+            except Exception as e:  # noqa: BLE001
+                print("WARNING: YouTube search failed (%s); keeping previous YouTube data." % e, file=sys.stderr)
+        else:
+            print("youtube search skipped (interval not reached)")
+        # 特設は毎回直接取得する（1ユニット）。
         try:
-            yt = fetch_youtube(api_key)
-            for vid, row in yt.items():
-                merged["youtube:" + vid] = row
-            print("youtube fetched: %d" % len(yt))
             featured = fetch_featured(api_key)
-            now_ms = int(time.time() * 1000)
             point = [now_ms, featured["viewCount"], featured["likeCount"], featured["commentCount"]]
             if not history or history[-1][1:] != point[1:]:
                 history.append(point)
             print("featured: %d views, history points: %d" % (featured["viewCount"], len(history)))
         except urllib.error.HTTPError as e:
-            # クォータ枯渇（403/429）など。ニコニコ分だけでも更新する。
-            print("WARNING: YouTube fetch failed (HTTP %s); keeping previous YouTube data." % e.code, file=sys.stderr)
+            print("WARNING: featured fetch failed (HTTP %s); keeping previous featured." % e.code, file=sys.stderr)
         except Exception as e:  # noqa: BLE001
-            print("WARNING: YouTube fetch failed (%s); keeping previous YouTube data." % e, file=sys.stderr)
+            print("WARNING: featured fetch failed (%s); keeping previous featured." % e, file=sys.stderr)
 
     rows = sorted(merged.values(), key=lambda r: r[4], reverse=True)  # 人気順
     new_keys = sorted(set(merged.keys()) - set(old_videos.keys()))
@@ -246,6 +279,8 @@ def main():
         "youtube": sum(1 for r in rows if r[0] == "youtube"),
         "niconico": sum(1 for r in rows if r[0] == "niconico"),
         "newKeys": new_keys,
+        "lastSearchMs": last_search_ms,
+        "lastPopularMs": last_popular_ms,
         "featured": featured,
         "videos": rows,
     }
