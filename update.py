@@ -24,12 +24,15 @@ Python標準ライブラリのみで動作する（pip install 不要）。
     公表した確定値で固定登録する。タイトルに曲名を含まない派生
     （1vnTy_ll7Aw）はID指定で毎回直接取得して数値を更新する。
     行の10番目の要素に "deleted" / "manual" の印を付ける。
-  - YouTube APIの開発者ポリシー（保存データは30日以内に更新か削除）に
-    沿うため、取得時刻（fetchedAt）を動画ごとに記録し、毎回いちばん
-    古いものから最大50件を videos.list で再取得して値を更新する
-    （ローリング再取得）。再取得で返ってこなかった動画は削除・非公開に
-    なったものとして一覧から外す。特設・手動ウォッチ・本家は対象外
-    （特設と手動は毎回取得、本家は確定値で固定のため）。
+  - 保存データが古いまま残らないよう、取得時刻（fetchedAt）を動画
+    ごとに記録し、毎回いちばん古いものから最大50件を videos.list で
+    再取得して値を更新する（ローリング再取得）。再取得で返ってこな
+    かった動画は、削除・非公開になった可能性があるものとして、最後に
+    確認できた値のまま「gone」の印を付けて凍結し、一覧に残す（ユーザー
+    の方針: 消えた動画も記録として残す）。凍結した動画は再取得の対象
+    から外れるが、通常の検索で再び取得されれば印は外れて最新化される。
+    特設・手動ウォッチ・本家は対象外（特設と手動は毎回取得、本家は
+    確定値で固定のため）。
 """
 
 import json
@@ -298,14 +301,18 @@ def refresh_stale_youtube(api_key, merged, fetched_at, now_ms):
     """取得時刻が古い YouTube 動画から最大 REFRESH_BATCH 件を再取得する。
 
     merged（"youtube:<id>" -> 行）と fetched_at（id -> 取得時刻ms）を直接更新し、
-    (更新件数, 除外件数) を返す。再取得で返ってこなかった動画は削除・非公開に
-    なったものとして merged から外す。呼び出し側で例外を捕捉すること。
+    (更新件数, 凍結件数) を返す。再取得で返ってこなかった動画は削除・非公開に
+    なった可能性があるものとして、行に "gone" の印を付けて凍結し、一覧に
+    残す（消さない）。凍結済みの動画は候補から外す。呼び出し側で例外を
+    捕捉すること。
     """
     skip = {ORIGINAL_YOUTUBE_ID, FEATURED_VIDEO_ID} | set(MANUAL_WATCH_IDS)
     candidates = []
     for key, row in merged.items():
         if row[0] != "youtube" or row[1] in skip:
             continue
+        if len(row) > 9 and row[9] == "gone":
+            continue  # 凍結済みは再取得しない
         candidates.append((int(fetched_at.get(row[1], 0)), row[1]))
     if not candidates:
         return (0, 0)
@@ -339,13 +346,17 @@ def refresh_stale_youtube(api_key, merged, fetched_at, now_ms):
             row.append(old[9])  # 印（フラグ）があれば引き継ぐ
         merged["youtube:" + vid] = row
         fetched_at[vid] = now_ms
-    removed = 0
+    frozen = 0
     for vid in targets:
         if vid not in returned:
-            merged.pop("youtube:" + vid, None)
-            fetched_at.pop(vid, None)
-            removed += 1
-    return (len(returned), removed)
+            row = merged.get("youtube:" + vid)
+            if row is not None:
+                if len(row) > 9:
+                    row[9] = "gone"
+                else:
+                    row.append("gone")
+                frozen += 1
+    return (len(returned), frozen)
 
 
 # ---------------------------------------------------------------- メイン
@@ -446,8 +457,8 @@ def main():
             print("WARNING: manual fetch failed (%s); keeping previous manual entries." % e, file=sys.stderr)
         # ローリング再取得: 取得時刻が古いものから最大50件を取り直す（1ユニット）。
         try:
-            refreshed, removed_gone = refresh_stale_youtube(api_key, merged, fetched_at, now_ms)
-            print("rolling refresh: %d updated, %d gone" % (refreshed, removed_gone))
+            refreshed, frozen = refresh_stale_youtube(api_key, merged, fetched_at, now_ms)
+            print("rolling refresh: %d updated, %d frozen" % (refreshed, frozen))
         except urllib.error.HTTPError as e:
             print("WARNING: rolling refresh failed (HTTP %s); keeping previous data." % e.code, file=sys.stderr)
         except Exception as e:  # noqa: BLE001

@@ -90,6 +90,7 @@
   .badge-new{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;letter-spacing:.06em;z-index:2}
   .badge-plat{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11px;padding:2px 8px;border-radius:6px;z-index:2}
   .badge-del{position:absolute;top:8px;left:8px;background:#5a0d12;color:#ffb3ba;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;z-index:2;border:1px solid var(--red)}
+  .badge-gone{position:absolute;top:8px;left:8px;background:#3a3a40;color:#e8e8ec;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;z-index:2;border:1px solid #6a6a72}
   .tag-man{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:6px;font-size:11px;padding:0 6px;margin-left:6px;color:var(--sub);vertical-align:1px}
   .card .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
   .card .title{font-size:14px;font-weight:700;line-height:1.5;overflow-wrap:anywhere}
@@ -120,6 +121,7 @@
   <footer class="site">
     <p>収集条件：タイトルに INMU KING / INMU_KING / INMUKING を含む動画のみ（タグ・説明文の一致は採用していません）。
     このほか、削除済みの本家YouTube版（再生数・高評価は作者がコミュニティ投稿で公表した削除時点の確定値）など、指定した動画を手動で追加しています。
+    YouTube側で確認できなくなった動画は、最後に確認できた数値のまま「取得不可」として残しています。
     本ページは非公式ファンツールです。動画の権利は各投稿者・権利者に帰属します。</p>
     <p>権利者・投稿者の方へ：掲載内容の修正・削除をご希望の場合は、<a href="https://github.com/yaju81024/inmuking-monitor/issues" target="_blank" rel="noopener">GitHubリポジトリのIssues</a>からご連絡ください。確認のうえ、速やかに対応します。</p>
   </footer>
@@ -156,11 +158,12 @@ function thumbHTML(v, isNew){
   return `<img loading="lazy" src="${esc(th)}" alt="">`
     + (isNew ? `<span class="badge-new">NEW</span>` : "")
     + (flag === "deleted" ? `<span class="badge-del">削除済み（2026-10-22）</span>` : "")
+    + (flag === "gone" ? `<span class="badge-gone">取得不可</span>` : "")
     + `<span class="badge-plat">${p === "youtube" ? "YouTube" : "ニコニコ"}</span>`
-    + (flag === "deleted" ? "" : `<button class="playbtn" type="button" aria-label="再生"></button>`);
+    + (flag === "deleted" || flag === "gone" ? "" : `<button class="playbtn" type="button" aria-label="再生"></button>`);
 }
 function wireThumb(container, v){
-  if ((v[9] || "") === "deleted"){
+  if ((v[9] || "") === "deleted" || (v[9] || "") === "gone"){
     container.style.cursor = "pointer";
     container.addEventListener("click", () => window.open(v[8], "_blank", "noopener"));
     return;
@@ -414,7 +417,7 @@ function renderList(){
       <div class="thumb" data-v="${esc(v[0] + ":" + v[1])}">${thumbHTML(v, isNew)}</div>
       <div class="body">
         <div class="title"><a href="${esc(v[8])}" target="_blank" rel="noopener">${esc(v[2])}</a></div>
-        <div class="meta">${esc(v[3] || "")}${v[3] ? " ／ " : ""}${esc(fmtDate(v[6]))}${v[9] === "deleted" ? `<span class="tag-man">本家・YouTube版</span>` : v[9] === "manual" ? `<span class="tag-man">手動追加</span>` : ""}</div>
+        <div class="meta">${esc(v[3] || "")}${v[3] ? " ／ " : ""}${esc(fmtDate(v[6]))}${v[9] === "deleted" ? `<span class="tag-man">本家・YouTube版</span>` : v[9] === "manual" ? `<span class="tag-man">手動追加</span>` : v[9] === "gone" ? `<span class="tag-man">削除・非公開の可能性（最終確認値）</span>` : ""}</div>
         <div class="nums">再生 <b>${fmt(v[4])}</b> ／ 高評価 <b>${fmt(v[5])}</b></div>
       </div>
     </article>`;
