@@ -20,6 +20,10 @@ Python標準ライブラリのみで動作する（pip install 不要）。
   - YouTube取得に失敗した場合は警告して前回データを保持し、ニコニコ分
     だけでも更新する。ニコニコ取得の失敗時は例外で終了し、ファイルは
     書き換えない。
+  - 手動エントリ（例外）: 削除済みの本家YouTube版（MFwtpM21wWc）は作者が
+    公表した確定値で固定登録する。タイトルに曲名を含まない派生
+    （1vnTy_ll7Aw）はID指定で毎回直接取得して数値を更新する。
+    行の10番目の要素に "deleted" / "manual" の印を付ける。
 """
 
 import json
@@ -40,6 +44,42 @@ TITLE_MARKERS = ["inmu king", "inmu_king", "inmuking"]
 FEATURED_VIDEO_ID = "RkcI7ase0H0"  # 【MV】INMU KING（修正版）/ YAJU-MC
 FEATURED_CHANNEL_URL = "https://www.youtube.com/channel/UCw6QbnRMUYY8lztr7lotahQ"
 ORIGINAL_NICONICO_URL = "https://www.nicovideo.jp/watch/sm46647529"
+
+# 手動エントリ: 削除済みの本家YouTube版。数値は作者やじゅまん本人が
+# YouTubeコミュニティ投稿で明かした削除時点の確定値（2026-11-11確認）。
+# コメント数の最終値は非公表のため一覧には含めない（行は再生数・高評価まで）。
+ORIGINAL_YOUTUBE_ID = "MFwtpM21wWc"
+ORIGINAL_YOUTUBE_ROW = [
+    "youtube",
+    ORIGINAL_YOUTUBE_ID,
+    "【MV】INMU KING / YAJU-MC",
+    "やじゅまん",
+    28742048,
+    347592,
+    1786287600000,  # 2026-08-10 00:00 JST
+    "https://nicovideo.cdn.nimg.jp/thumbnails/46647529/46647529.14830621",
+    "https://www.youtube.com/watch?v=" + ORIGINAL_YOUTUBE_ID,
+    "deleted",
+]
+
+# 手動エントリ: タイトルに曲名を含まないため通常収集で拾えない派生。
+# チバニャン「お前嘘臭ぇんだよスギ」（溝口勇児モノマネ）。毎回ID指定で
+# 直接取得して数値を更新する。取得できない間は前回値（初回はシード値）を保持。
+MANUAL_WATCH_IDS = ["1vnTy_ll7Aw"]
+MANUAL_SEED_ROWS = {
+    "1vnTy_ll7Aw": [
+        "youtube",
+        "1vnTy_ll7Aw",
+        "お前嘘臭ぇんだよスギ",
+        "チバニャンの波動チャンネル",
+        5094891,
+        23936,
+        1787238000000,  # 2026-08-21 JST（直接取得で正確な値に上書きされる）
+        "https://i.ytimg.com/vi/1vnTy_ll7Aw/hqdefault.jpg",
+        "https://www.youtube.com/watch?v=1vnTy_ll7Aw",
+        "manual",
+    ],
+}
 
 NICONICO_API = "https://snapshot.search.nicovideo.jp/api/v2/snapshot/video/contents/search"
 YOUTUBE_API = "https://www.googleapis.com/youtube/v3"
@@ -213,6 +253,40 @@ def fetch_featured(api_key):
     }
 
 
+def fetch_manual(api_key):
+    """手動ウォッチリストの動画を videos.list で直接取得する。
+
+    タイトル一致チェックは適用しない（タイトルに曲名を含まない派生が対象）。
+    返り値は videoId -> 配列（10番目の要素に "manual" の印）。
+    """
+    found = {}
+    if not MANUAL_WATCH_IDS:
+        return found
+    params = {
+        "part": "snippet,statistics",
+        "id": ",".join(MANUAL_WATCH_IDS),
+        "key": api_key,
+    }
+    res = http_get_json_youtube(YOUTUBE_API + "/videos", params)
+    for item in res.get("items", []):
+        snip = item.get("snippet", {})
+        stats = item.get("statistics", {})
+        vid = item["id"]
+        found[vid] = [
+            "youtube",
+            vid,
+            snip.get("title", ""),
+            snip.get("channelTitle"),
+            int(stats.get("viewCount", 0)),
+            int(stats.get("likeCount", 0)),
+            iso_to_ms(snip["publishedAt"]),
+            "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg",
+            "https://www.youtube.com/watch?v=" + vid,
+            "manual",
+        ]
+    return found
+
+
 # ---------------------------------------------------------------- メイン
 def load_json(path, default):
     if os.path.exists(path):
@@ -288,9 +362,29 @@ def main():
             print("WARNING: featured fetch failed (HTTP %s); keeping previous featured." % e.code, file=sys.stderr)
         except Exception as e:  # noqa: BLE001
             print("WARNING: featured fetch failed (%s); keeping previous featured." % e, file=sys.stderr)
+        # 手動ウォッチリストは毎回直接取得する（1ユニット）。
+        try:
+            manual = fetch_manual(api_key)
+            for vid, row in manual.items():
+                merged["youtube:" + vid] = row
+            print("manual watch fetched: %d" % len(manual))
+        except urllib.error.HTTPError as e:
+            print("WARNING: manual fetch failed (HTTP %s); keeping previous manual entries." % e.code, file=sys.stderr)
+        except Exception as e:  # noqa: BLE001
+            print("WARNING: manual fetch failed (%s); keeping previous manual entries." % e, file=sys.stderr)
+
+    # 手動エントリの保証: 本家は確定値で常時登録し、ウォッチ分は未登録なら
+    # シード値で登録する（キー未設定・取得失敗時でも一覧から消えない）。
+    merged["youtube:" + ORIGINAL_YOUTUBE_ID] = list(ORIGINAL_YOUTUBE_ROW)
+    for vid, seed in MANUAL_SEED_ROWS.items():
+        merged.setdefault("youtube:" + vid, list(seed))
 
     rows = sorted(merged.values(), key=lambda r: r[4], reverse=True)  # 人気順
     new_keys = sorted(set(merged.keys()) - set(old_videos.keys()))
+    # 手動エントリは「新着」として扱わない。
+    new_keys = [k for k in new_keys
+                if k != "youtube:" + ORIGINAL_YOUTUBE_ID
+                and k not in ("youtube:" + v for v in MANUAL_WATCH_IDS)]
 
     now = datetime.now(JST)
     data = {

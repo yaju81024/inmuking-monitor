@@ -53,9 +53,20 @@
   #charttip .tt-time{color:var(--sub);font-size:12px}
   #charttip .tt-views{font-size:16px;font-weight:800}
   .charthint{font-size:12px;color:var(--sub);margin:8px 0 0}
+  .modebar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:0 0 8px}
+  .modebar .lbl{font-size:12px;color:var(--sub)}
+
+  /* ---------- オリコン枠 ---------- */
+  .oricon{border-top:1px solid var(--line);padding:14px 18px 6px}
+  .oricon h3{margin:0 0 8px;font-size:15px}
+  .oricon .ostats{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+  .oricon .verdict{font-size:13.5px;margin:0 0 6px}
+  .oricon .verdict b{color:#ffb3ba}
+  .oricon .onote{font-size:12px;color:var(--sub);margin:0 0 8px}
   @media (max-width:860px){
     .featured-body{grid-template-columns:minmax(0,1fr)}
     .chartbox{padding:12px}
+    .oricon{padding:12px 12px 4px}
   }
 
   /* ---------- 状況・ツールバー ---------- */
@@ -78,6 +89,8 @@
   .card .playbtn{width:52px;height:38px;border-radius:9px}
   .badge-new{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;letter-spacing:.06em;z-index:2}
   .badge-plat{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11px;padding:2px 8px;border-radius:6px;z-index:2}
+  .badge-del{position:absolute;top:8px;left:8px;background:#5a0d12;color:#ffb3ba;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;z-index:2;border:1px solid var(--red)}
+  .tag-man{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:6px;font-size:11px;padding:0 6px;margin-left:6px;color:var(--sub);vertical-align:1px}
   .card .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
   .card .title{font-size:14px;font-weight:700;line-height:1.5;overflow-wrap:anywhere}
   .card .title a{color:var(--text);text-decoration:none}
@@ -93,7 +106,7 @@
 <div class="wrap">
   <header class="site">
     <h1>INMU KING 動画モニター</h1>
-    <p class="lead">ニコニコ動画とYouTubeから、タイトルに「INMU KING」を含む動画を自動収集して追うモニターです。</p>
+    <p class="lead">ニコニコ動画とYouTubeから、タイトルに「INMU KING」を含む動画を自動収集して追うモニターです。一部、指定した動画を手動で追加しています。</p>
   </header>
 
   <div class="notice">
@@ -106,6 +119,7 @@
 
   <footer class="site">
     <p>収集条件：タイトルに INMU KING / INMU_KING / INMUKING を含む動画のみ（タグ・説明文の一致は採用していません）。
+    このほか、削除済みの本家YouTube版（再生数・高評価は作者がコミュニティ投稿で公表した削除時点の確定値）など、指定した動画を手動で追加しています。
     本ページは非公式ファンツールです。動画の権利は各投稿者・権利者に帰属します。</p>
   </footer>
 </div>
@@ -137,19 +151,28 @@ function mountPlayer(container, v){
 }
 function thumbHTML(v, isNew){
   const [p, id, title, , , , , th] = v;
+  const flag = v[9] || "";
   return `<img loading="lazy" src="${esc(th)}" alt="">`
     + (isNew ? `<span class="badge-new">NEW</span>` : "")
+    + (flag === "deleted" ? `<span class="badge-del">削除済み（2026-10-22）</span>` : "")
     + `<span class="badge-plat">${p === "youtube" ? "YouTube" : "ニコニコ"}</span>`
-    + `<button class="playbtn" type="button" aria-label="再生"></button>`;
+    + (flag === "deleted" ? "" : `<button class="playbtn" type="button" aria-label="再生"></button>`);
 }
 function wireThumb(container, v){
+  if ((v[9] || "") === "deleted"){
+    container.style.cursor = "pointer";
+    container.addEventListener("click", () => window.open(v[8], "_blank", "noopener"));
+    return;
+  }
   const btn = $(".playbtn", container);
   if (btn) btn.addEventListener("click", () => mountPlayer(container, v));
 }
 
 /* ---------------- 特設グラフ ---------------- */
 let CHART = null;
+let CHARTMODE = "normal", ORISCALE = "550";
 function drawChart(){
+  if (CHARTMODE === "oricon"){ drawOriconChart(); return; }
   const svg = $("#chart");
   if (!svg || HISTORY.length < 2) return;
   const Wpx = svg.clientWidth || svg.parentElement.clientWidth || 340;
@@ -188,7 +211,7 @@ function drawChart(){
   const last = HISTORY[HISTORY.length - 1];
   s += `<text x="${Math.min(X(last[0]), W - padR)}" y="${Math.max(Y(last[1]) - 10, fsize + 2)}" fill="#fff" font-size="${mobile ? 17 : 13}" font-weight="700" text-anchor="end">${fmt(last[1])}回</text>`;
   s += `<g id="chartmark"></g>`;
-  CHART = {W, H, padT, padB, mobile, X, Y};
+  CHART = {W, H, padT, padB, mobile, X, Y, series: HISTORY, mode: "normal"};
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
   svg.innerHTML = s;
   const tip0 = $("#charttip"); if (tip0) tip0.style.display = "none";
@@ -201,23 +224,26 @@ function wireChart(){
   const svg = $("#chart"), tip = $("#charttip");
   if (!svg || !tip) return;
   const move = ev => {
-    if (!CHART || HISTORY.length < 2) return;
+    const S = (CHART && CHART.series) || [];
+    if (!CHART || S.length < 2) return;
     const rect = svg.getBoundingClientRect();
     if (!rect.width) return;
     const x = (ev.clientX - rect.left) * (CHART.W / rect.width);
     let best = 0, bd = Infinity;
-    for (let i = 0; i < HISTORY.length; i++){
-      const d = Math.abs(CHART.X(HISTORY[i][0]) - x);
+    for (let i = 0; i < S.length; i++){
+      const d = Math.abs(CHART.X(S[i][0]) - x);
       if (d < bd){ bd = d; best = i; }
     }
-    const p = HISTORY[best];
+    const p = S[best];
     const cx = CHART.X(p[0]), cy = CHART.Y(p[1]);
     const mark = svg.querySelector("#chartmark");
     if (mark) mark.innerHTML =
       `<line x1="${cx}" y1="${CHART.padT}" x2="${cx}" y2="${CHART.H - CHART.padB}" stroke="#ffffff" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>` +
       `<circle cx="${cx}" cy="${cy}" r="${CHART.mobile ? 6.5 : 5}" fill="#ff2a3c" stroke="#ffffff" stroke-width="2"/>`;
     tip.innerHTML = `<div class="tt-time">${esc(fmtDate(p[0]))}</div>` +
-      `<div class="tt-views">${fmt(p[1])} 回</div>` +
+      (CHART.mode === "oricon"
+        ? `<div class="tt-views">${fmt(p[1])} 回（週間累計）</div>` + `<div>総再生数 ${fmt(p[4])}</div>`
+        : `<div class="tt-views">${fmt(p[1])} 回</div>`) +
       `<div>高評価 ${fmt(p[2])} ／ コメント ${fmt(p[3])}</div>`;
     tip.style.display = "block";
     const wrap = svg.parentElement;
@@ -241,6 +267,134 @@ function wireChart(){
 let resizeTimer = null;
 window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(drawChart, 150); });
 
+/* ---------------- オリコン枠 ---------------- */
+function oriconWeek(nowMs){
+  const DAY = 86400000, H9 = 9 * 3600000;
+  const j = new Date(nowMs + H9);
+  const sinceFri = (j.getUTCDay() - 5 + 7) % 7; // 金曜=5
+  const start = Date.UTC(j.getUTCFullYear(), j.getUTCMonth(), j.getUTCDate()) - H9 - sinceFri * DAY;
+  return {start, end: start + 7 * DAY};
+}
+function oriconData(){
+  const now = Date.now();
+  const wk = oriconWeek(now);
+  let baseline = 0;
+  for (const p of HISTORY){ if (p[0] < wk.start) baseline = p[1]; else break; }
+  const series = [];
+  if (baseline > 0) series.push([wk.start, 0, null, null, baseline]);
+  for (const p of HISTORY){ if (p[0] >= wk.start) series.push([p[0], p[1] - baseline, p[2], p[3], p[1]]); }
+  if (!series.length) return null;
+  const last = series[series.length - 1];
+  const cumNow = last[1];
+  let ref = series[0];
+  for (const p of series){ if (p[0] <= last[0] - 6 * 3600000) ref = p; else break; }
+  const dh = (last[0] - ref[0]) / 3600000;
+  const pace = dh > 0.05 ? (last[1] - ref[1]) / dh : 0;
+  const hoursLeft = Math.max(0, (wk.end - now) / 3600000);
+  const proj = cumNow + pace * hoursLeft;
+  const remain150 = Math.max(0, 1500000 - cumNow);
+  const reqPace = hoursLeft > 0 ? remain150 / hoursLeft : 0;
+  return {wk, baseline, series, cumNow, pace, hoursLeft, proj, remain150, reqPace};
+}
+function fmtDay(ms){
+  const d = new Date(ms + 9 * 3600000);
+  return (d.getUTCMonth() + 1) + "月" + d.getUTCDate() + "日";
+}
+function renderOricon(){
+  const box = $("#oricon");
+  if (!box) return;
+  const o = oriconData();
+  if (!o){ box.innerHTML = ""; return; }
+  let verdict;
+  if (o.remain150 <= 0){
+    verdict = `<b>週間150万回に到達済み</b>です。次のライン・300万回までは残り <b>${fmt(Math.max(0, 3000000 - o.cumNow))}回</b>。`;
+  } else if (o.proj >= 1500000){
+    verdict = `直近6時間のペース（約<b>${fmt(Math.round(o.pace))}回/h</b>）が続けば、週末までに週間150万回へ<b>到達する見込み</b>です。`;
+  } else {
+    verdict = `直近6時間のペース（約<b>${fmt(Math.round(o.pace))}回/h</b>）のままでは約<b>${fmt(Math.round(1500000 - o.proj))}回不足</b>します。150万回には残り時間で約<b>${fmt(Math.round(o.reqPace))}回/h</b>が必要です。`;
+  }
+  box.innerHTML = `
+    <h3>オリコン週間TOP30まで</h3>
+    <div class="ostats">
+      <div class="stat"><div class="num">${fmt(o.cumNow)}</div><div class="lbl">今週の累計（金曜0時〜）</div></div>
+      <div class="stat"><div class="num">${o.remain150 > 0 ? "残り " + fmt(o.remain150) : "到達済み"}</div><div class="lbl">150万回まで</div></div>
+      <div class="stat"><div class="num">${fmt(Math.round(o.pace))}</div><div class="lbl">直近6時間ペース（回/h）</div></div>
+      <div class="stat"><div class="num">${fmt(Math.round(o.proj))}</div><div class="lbl">週末到達見込み</div></div>
+    </div>
+    <p class="verdict">${verdict}</p>
+    <p class="onote">集計週：${fmtDay(o.wk.start)}（金）〜${fmtDay(o.wk.end - 86400000)}（木）。横線の150万／300万／550万回は、直近のオリコン週間YouTubeチャートを基にした目安（150万＝TOP30圏、300万＝TOP10圏、550万＝2位水準）です。グラフの「オリコン到達」表示で、累計の伸びと到達見込みを確認できます。</p>`;
+}
+function drawOriconChart(){
+  const svg = $("#chart");
+  if (!svg || HISTORY.length < 2) return;
+  const o = oriconData();
+  if (!o) return;
+  const Wpx = svg.clientWidth || svg.parentElement.clientWidth || 340;
+  const mobile = Wpx < 620;
+  const W = mobile ? Math.round(Wpx) : 760;
+  const H = mobile ? Math.max(300, Math.min(380, Math.round(W * 1.02))) : 308;
+  const padL = mobile ? 52 : 58, padR = 14, padT = 16, padB = 30;
+  const iw = W - padL - padR, ih = H - padT - padB;
+  const t0 = o.wk.start, t1 = o.wk.end;
+  const S = o.series;
+  const cumMax = Math.max(...S.map(p => p[1]));
+  const ymax = ORISCALE === "550" ? Math.max(5500000, o.proj)
+                                  : Math.max(1650000, cumMax * 1.15, Math.min(o.proj, 5500000));
+  const X = t => padL + ((t - t0) / (t1 - t0)) * iw;
+  const Y = v => padT + (1 - v / ymax) * ih;
+  const fsize = mobile ? 13.5 : 11;
+  let s = "";
+  for (let i = 0; i <= 4; i++){
+    const v = ymax * i / 4, y = Y(v);
+    s += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#3a3a40" stroke-width="1"/>`
+       + `<text x="${padL - 6}" y="${y + 4}" fill="#b9b9c0" font-size="${fsize}" text-anchor="end">${esc(fmtShort(v))}</text>`;
+  }
+  for (const lv of [1500000, 3000000, 5500000]){
+    if (lv > ymax) continue;
+    const y = Y(lv);
+    s += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#ffb3ba" stroke-width="1" stroke-dasharray="5 4" opacity="0.75"/>`
+       + `<text x="${W - padR}" y="${y - 5}" fill="#ffb3ba" font-size="${fsize}" text-anchor="end">${lv / 10000}万</text>`;
+  }
+  for (const tt of [t0, t0 + (t1 - t0) / 2, t1]){
+    const d = new Date(tt + 9 * 3600000);
+    const lbl = (d.getUTCMonth() + 1) + "/" + d.getUTCDate();
+    const anch = tt === t1 ? "end" : "middle";
+    s += `<text x="${X(tt)}" y="${H - 8}" fill="#b9b9c0" font-size="${fsize}" text-anchor="${anch}">${lbl}</text>`;
+  }
+  const pts = S.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+  s += `<polyline points="${pts}" fill="none" stroke="#ff2a3c" stroke-width="${mobile ? 3.5 : 2.5}" stroke-linejoin="round"/>`;
+  for (const p of S){
+    s += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${mobile ? 3.4 : 2.4}" fill="#ff2a3c"><title>${esc(fmtDate(p[0]))}：週間累計 ${fmt(p[1])}回</title></circle>`;
+  }
+  const last = S[S.length - 1];
+  const projY = Math.max(padT, Y(o.proj));
+  s += `<line x1="${X(last[0])}" y1="${Y(last[1])}" x2="${X(t1)}" y2="${projY}" stroke="#ffffff" stroke-width="1.6" stroke-dasharray="6 4" opacity="0.85"/>`;
+  if (o.remain150 > 0){
+    s += `<line x1="${X(last[0])}" y1="${Y(last[1])}" x2="${X(t1)}" y2="${Y(1500000)}" stroke="#7db8ff" stroke-width="1.6" stroke-dasharray="2 3" opacity="0.9"/>`;
+  }
+  s += `<text x="${Math.min(X(last[0]), W - padR)}" y="${Math.max(Y(last[1]) - 10, fsize + 2)}" fill="#fff" font-size="${mobile ? 17 : 13}" font-weight="700" text-anchor="end">${fmt(last[1])}回（累計）</text>`;
+  s += `<g id="chartmark"></g>`;
+  CHART = {W, H, padT, padB, mobile, X, Y, series: S, mode: "oricon"};
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.innerHTML = s;
+  const tip0 = $("#charttip"); if (tip0) tip0.style.display = "none";
+}
+function wireModebar(){
+  const bar = $("#modebar");
+  if (!bar) return;
+  const sync = () => {
+    bar.querySelectorAll("[data-mode]").forEach(b => b.classList.toggle("on", b.dataset.mode === CHARTMODE));
+    bar.querySelectorAll("[data-scale]").forEach(b => b.classList.toggle("on", b.dataset.scale === ORISCALE));
+    $("#scalebar").style.display = CHARTMODE === "oricon" ? "" : "none";
+    const gl = $("#growthline"), cn = $("#chartnote");
+    if (gl) gl.style.display = CHARTMODE === "oricon" ? "none" : "";
+    if (cn) cn.style.display = CHARTMODE === "oricon" ? "" : "none";
+  };
+  bar.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => { CHARTMODE = b.dataset.mode; sync(); drawChart(); }));
+  bar.querySelectorAll("[data-scale]").forEach(b => b.addEventListener("click", () => { ORISCALE = b.dataset.scale; sync(); drawChart(); }));
+  sync();
+}
+
 /* ---------------- 一覧 ---------------- */
 function renderList(){
   const list = $("#list"), count = $("#count");
@@ -259,7 +413,7 @@ function renderList(){
       <div class="thumb" data-v="${esc(v[0] + ":" + v[1])}">${thumbHTML(v, isNew)}</div>
       <div class="body">
         <div class="title"><a href="${esc(v[8])}" target="_blank" rel="noopener">${esc(v[2])}</a></div>
-        <div class="meta">${esc(v[3] || "")}${v[3] ? " ／ " : ""}${esc(fmtDate(v[6]))}</div>
+        <div class="meta">${esc(v[3] || "")}${v[3] ? " ／ " : ""}${esc(fmtDate(v[6]))}${v[9] === "deleted" ? `<span class="tag-man">本家・YouTube版</span>` : v[9] === "manual" ? `<span class="tag-man">手動追加</span>` : ""}</div>
         <div class="nums">再生 <b>${fmt(v[4])}</b> ／ 高評価 <b>${fmt(v[5])}</b></div>
       </div>
     </article>`;
@@ -298,9 +452,21 @@ function render(){
         </div>
       </div>
     </div>
+    <div class="oricon" id="oricon"></div>
     <div class="chartbox">
       <h3>再生数の推移</h3>
-      <p class="growth">記録開始（${HISTORY.length ? esc(fmtDate(HISTORY[0][0])) : "—"}）から <b>+${fmt(growth)}回</b> ／ 記録 ${fmt(HISTORY.length)}点</p>
+      <div class="modebar" id="modebar">
+        <span class="lbl">表示:</span>
+        <button class="tbtn on" data-mode="normal" type="button">通常のグラフ</button>
+        <button class="tbtn" data-mode="oricon" type="button">オリコン到達</button>
+        <span id="scalebar" style="display:none">
+          <span class="lbl">縦軸:</span>
+          <button class="tbtn on" data-scale="550" type="button">550万まで</button>
+          <button class="tbtn" data-scale="auto" type="button">自動</button>
+        </span>
+      </div>
+      <p class="growth" id="growthline">記録開始（${HISTORY.length ? esc(fmtDate(HISTORY[0][0])) : "—"}）から <b>+${fmt(growth)}回</b> ／ 記録 ${fmt(HISTORY.length)}点</p>
+      <p class="growth" id="chartnote" style="display:none">実線＝今週の累計（実測）。白の破線＝直近6時間ペースのまま伸びた場合の到達見込み、青の点線＝150万回に必要なペース。横線は150万・300万・550万回です。</p>
       <div class="chartwrap"><svg id="chart" role="img" aria-label="特設動画の再生数推移グラフ"></svg><div id="charttip"></div></div>
       <p class="charthint">グラフをタップ／なぞると、その時点の再生数・高評価・コメントが表示されます。</p>
     </div>
@@ -340,8 +506,10 @@ function render(){
   $("#q").addEventListener("input", e => { state.query = e.target.value; renderList(); });
   syncBtns();
   renderList();
+  renderOricon();
   drawChart();
   wireChart();
+  wireModebar();
 }
 
 Promise.all([
