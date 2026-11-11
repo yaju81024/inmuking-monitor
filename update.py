@@ -24,6 +24,12 @@ Python標準ライブラリのみで動作する（pip install 不要）。
     公表した確定値で固定登録する。タイトルに曲名を含まない派生
     （1vnTy_ll7Aw）はID指定で毎回直接取得して数値を更新する。
     行の10番目の要素に "deleted" / "manual" の印を付ける。
+  - YouTube APIの開発者ポリシー（保存データは30日以内に更新か削除）に
+    沿うため、取得時刻（fetchedAt）を動画ごとに記録し、毎回いちばん
+    古いものから最大50件を videos.list で再取得して値を更新する
+    （ローリング再取得）。再取得で返ってこなかった動画は削除・非公開に
+    なったものとして一覧から外す。特設・手動ウォッチ・本家は対象外
+    （特設と手動は毎回取得、本家は確定値で固定のため）。
 """
 
 import json
@@ -91,6 +97,7 @@ JST = timezone(timedelta(hours=9))
 # 毎回は実行しない。特設の直接取得（1ユニット）とニコニコ取得は毎回行う。
 SEARCH_INTERVAL_MS = 60 * 60 * 1000        # 新着検索は約1時間に1回
 POPULAR_INTERVAL_MS = 6 * 60 * 60 * 1000   # 人気検索は約6時間に1回
+REFRESH_BATCH = 50                         # ローリング再取得は毎回最大50件（videos.list 1回分）
 
 
 def title_matches(title):
@@ -287,6 +294,60 @@ def fetch_manual(api_key):
     return found
 
 
+def refresh_stale_youtube(api_key, merged, fetched_at, now_ms):
+    """取得時刻が古い YouTube 動画から最大 REFRESH_BATCH 件を再取得する。
+
+    merged（"youtube:<id>" -> 行）と fetched_at（id -> 取得時刻ms）を直接更新し、
+    (更新件数, 除外件数) を返す。再取得で返ってこなかった動画は削除・非公開に
+    なったものとして merged から外す。呼び出し側で例外を捕捉すること。
+    """
+    skip = {ORIGINAL_YOUTUBE_ID, FEATURED_VIDEO_ID} | set(MANUAL_WATCH_IDS)
+    candidates = []
+    for key, row in merged.items():
+        if row[0] != "youtube" or row[1] in skip:
+            continue
+        candidates.append((int(fetched_at.get(row[1], 0)), row[1]))
+    if not candidates:
+        return (0, 0)
+    candidates.sort()
+    targets = [vid for _, vid in candidates[:REFRESH_BATCH]]
+    params = {
+        "part": "snippet,statistics",
+        "id": ",".join(targets),
+        "key": api_key,
+    }
+    res = http_get_json_youtube(YOUTUBE_API + "/videos", params)
+    returned = set()
+    for item in res.get("items", []):
+        snip = item.get("snippet", {})
+        stats = item.get("statistics", {})
+        vid = item["id"]
+        returned.add(vid)
+        old = merged.get("youtube:" + vid)
+        row = [
+            "youtube",
+            vid,
+            snip.get("title", ""),
+            snip.get("channelTitle"),
+            int(stats.get("viewCount", 0)),
+            int(stats.get("likeCount", 0)),
+            iso_to_ms(snip["publishedAt"]),
+            "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg",
+            "https://www.youtube.com/watch?v=" + vid,
+        ]
+        if old is not None and len(old) > 9:
+            row.append(old[9])  # 印（フラグ）があれば引き継ぐ
+        merged["youtube:" + vid] = row
+        fetched_at[vid] = now_ms
+    removed = 0
+    for vid in targets:
+        if vid not in returned:
+            merged.pop("youtube:" + vid, None)
+            fetched_at.pop(vid, None)
+            removed += 1
+    return (len(returned), removed)
+
+
 # ---------------------------------------------------------------- メイン
 def load_json(path, default):
     if os.path.exists(path):
@@ -323,6 +384,13 @@ def main():
     featured = old_data.get("featured") if old_data else None
     last_search_ms = int(old_data.get("lastSearchMs", 0)) if old_data else 0
     last_popular_ms = int(old_data.get("lastPopularMs", 0)) if old_data else 0
+    fetched_at = {}
+    if old_data:
+        for k, v in (old_data.get("fetchedAt") or {}).items():
+            try:
+                fetched_at[str(k)] = int(v)
+            except (TypeError, ValueError):
+                pass
 
     # --- YouTube（キーが無い／失敗した場合は警告して続行する）
     if not api_key:
@@ -339,6 +407,7 @@ def main():
                 yt = fetch_youtube(api_key, orders)
                 for vid, row in yt.items():
                     merged["youtube:" + vid] = row
+                    fetched_at[vid] = now_ms
                 print("youtube fetched: %d (orders: %s)" % (len(yt), ",".join(orders)))
                 if "date" in orders:
                     last_search_ms = now_ms
@@ -358,6 +427,8 @@ def main():
             if not history or history[-1][1:] != point[1:]:
                 history.append(point)
             print("featured: %d views, history points: %d" % (featured["viewCount"], len(history)))
+            if FEATURED_VIDEO_ID in merged:
+                fetched_at[FEATURED_VIDEO_ID] = now_ms
         except urllib.error.HTTPError as e:
             print("WARNING: featured fetch failed (HTTP %s); keeping previous featured." % e.code, file=sys.stderr)
         except Exception as e:  # noqa: BLE001
@@ -367,17 +438,30 @@ def main():
             manual = fetch_manual(api_key)
             for vid, row in manual.items():
                 merged["youtube:" + vid] = row
+                fetched_at[vid] = now_ms
             print("manual watch fetched: %d" % len(manual))
         except urllib.error.HTTPError as e:
             print("WARNING: manual fetch failed (HTTP %s); keeping previous manual entries." % e.code, file=sys.stderr)
         except Exception as e:  # noqa: BLE001
             print("WARNING: manual fetch failed (%s); keeping previous manual entries." % e, file=sys.stderr)
+        # ローリング再取得: 取得時刻が古いものから最大50件を取り直す（1ユニット）。
+        try:
+            refreshed, removed_gone = refresh_stale_youtube(api_key, merged, fetched_at, now_ms)
+            print("rolling refresh: %d updated, %d gone" % (refreshed, removed_gone))
+        except urllib.error.HTTPError as e:
+            print("WARNING: rolling refresh failed (HTTP %s); keeping previous data." % e.code, file=sys.stderr)
+        except Exception as e:  # noqa: BLE001
+            print("WARNING: rolling refresh failed (%s); keeping previous data." % e, file=sys.stderr)
 
     # 手動エントリの保証: 本家は確定値で常時登録し、ウォッチ分は未登録なら
     # シード値で登録する（キー未設定・取得失敗時でも一覧から消えない）。
     merged["youtube:" + ORIGINAL_YOUTUBE_ID] = list(ORIGINAL_YOUTUBE_ROW)
     for vid, seed in MANUAL_SEED_ROWS.items():
         merged.setdefault("youtube:" + vid, list(seed))
+
+    # fetchedAt は現存する YouTube 動画分だけに絞る（肥大化防止）。
+    live_yt_ids = {r[1] for r in merged.values() if r[0] == "youtube"}
+    fetched_at = {k: v for k, v in fetched_at.items() if k in live_yt_ids}
 
     rows = sorted(merged.values(), key=lambda r: r[4], reverse=True)  # 人気順
     new_keys = sorted(set(merged.keys()) - set(old_videos.keys()))
@@ -396,6 +480,7 @@ def main():
         "newKeys": new_keys,
         "lastSearchMs": last_search_ms,
         "lastPopularMs": last_popular_ms,
+        "fetchedAt": fetched_at,
         "featured": featured,
         "videos": rows,
     }
