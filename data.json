@@ -1,8 +1,8 @@
 {
- "updatedAt": "2026-11-11 23:12 JST",
- "updatedAtMs": 1794406365491,
- "total": 878,
- "youtube": 578,
+ "updatedAt": "2026-11-11 23:52 JST",
+ "updatedAtMs": 1794408744988,
+ "total": 880,
+ "youtube": 580,
  "niconico": 300,
  "newKeys": [],
  "lastSearchMs": 1794394362809,
@@ -15,13 +15,25 @@
   "publishedAt": 1794142628000,
   "thumbnailUrl": "https://i.ytimg.com/vi/RkcI7ase0H0/maxresdefault.jpg",
   "watchUrl": "https://www.youtube.com/watch?v=RkcI7ase0H0",
-  "viewCount": 1367960,
-  "likeCount": 97029,
-  "commentCount": 15036,
+  "viewCount": 1389780,
+  "likeCount": 97966,
+  "commentCount": 15178,
   "description": "INMU KINGから、削除の原因・問題になりうる性的要素を排除したものです。問題のある歌詞の音声部分全てに規制を入れています。本動画はYouTubeコミュニティガイドラインの「下品な表現に関するポリシー」に一切違反していません。\n\n※INMU KINGの二次利用における利用規約については、ニコニコモンズを参照してください。\n\n#例のアレ #ai #野獣先輩 #INMUKING",
   "originalNiconicoUrl": "https://www.nicovideo.jp/watch/sm46647529"
  },
  "videos": [
+  [
+   "youtube",
+   "MFwtpM21wWc",
+   "【MV】INMU KING / YAJU-MC",
+   "やじゅまん",
+   28742048,
+   347592,
+   1786287600000,
+   "https://nicovideo.cdn.nimg.jp/thumbnails/46647529/46647529.14830621",
+   "https://www.youtube.com/watch?v=MFwtpM21wWc",
+   "deleted"
+  ],
   [
    "youtube",
    "3isER-BQakc",
@@ -65,6 +77,18 @@
    1793702504000,
    "https://i.ytimg.com/vi/I9zAodxZnB4/hqdefault.jpg",
    "https://www.youtube.com/watch?v=I9zAodxZnB4"
+  ],
+  [
+   "youtube",
+   "1vnTy_ll7Aw",
+   "お前嘘臭ぇんだよスギ",
+   "チバニャンの波動チャンネル",
+   5097330,
+   23948,
+   1787308289000,
+   "https://i.ytimg.com/vi/1vnTy_ll7Aw/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=1vnTy_ll7Aw",
+   "manual"
   ],
   [
    "youtube",
