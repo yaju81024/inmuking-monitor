@@ -90,6 +90,17 @@ MANUAL_SEED_ROWS = {
     ],
 }
 
+# 復元エントリ: 2026-11-12未明、凍結方式へ切り替える前に除外方式の実行が
+# 1回だけ走り、下記4件が一覧から落ちた。ユーザーの方針（消えた動画も記録
+# として残す）により、直前の data.json（コミット 9c2f9f4）から最終確認値の
+# まま "gone" の印付きで復元する。通常の検索で再び取得されれば最新化される。
+RESTORED_FROZEN_ROWS = [
+    ["youtube", "1IYhTMi3dPk", "クレヨンしんちゃんのOPとinmuking結構合ってる", "ぜろくま / zerokuma1", 1222, 21, 1794053759000, "https://i.ytimg.com/vi/1IYhTMi3dPk/hqdefault.jpg", "https://www.youtube.com/watch?v=1IYhTMi3dPk", "gone"],
+    ["youtube", "-k6X2CGewPY", "inmu kingを霊夢に踊らせたよ。", "へざいあ", 122, 4, 1794230956000, "https://i.ytimg.com/vi/-k6X2CGewPY/hqdefault.jpg", "https://www.youtube.com/watch?v=-k6X2CGewPY", "gone"],
+    ["youtube", "3TwLlm6b_tY", "It's me INMUKINGに合う説www #shorts", "ラマ愛好家ch", 88, 8, 1794390290000, "https://i.ytimg.com/vi/3TwLlm6b_tY/hqdefault.jpg", "https://www.youtube.com/watch?v=3TwLlm6b_tY", "gone"],
+    ["youtube", "1c8uEB7Edc0", "春日俊彰はなぜ踊らされた？「イス壊しスギ」 #INMUKING #shorts #memebuzzAI", "meme buzz AI", 5, 2, 1794222603000, "https://i.ytimg.com/vi/1c8uEB7Edc0/hqdefault.jpg", "https://www.youtube.com/watch?v=1c8uEB7Edc0", "gone"],
+]
+
 NICONICO_API = "https://snapshot.search.nicovideo.jp/api/v2/snapshot/video/contents/search"
 YOUTUBE_API = "https://www.googleapis.com/youtube/v3"
 USER_AGENT = "inmu-king-monitor/1.0 (+https://github.com/)"
@@ -469,6 +480,10 @@ def main():
     merged["youtube:" + ORIGINAL_YOUTUBE_ID] = list(ORIGINAL_YOUTUBE_ROW)
     for vid, seed in MANUAL_SEED_ROWS.items():
         merged.setdefault("youtube:" + vid, list(seed))
+    # 復元エントリ（凍結）: 未登録なら最終確認値のまま戻す。登録済みなら
+    # 現在の行を優先する（検索で復活・最新化された場合に印を残さないため）。
+    for row in RESTORED_FROZEN_ROWS:
+        merged.setdefault("youtube:" + row[1], list(row))
 
     # fetchedAt は現存する YouTube 動画分だけに絞る（肥大化防止）。
     live_yt_ids = {r[1] for r in merged.values() if r[0] == "youtube"}
@@ -476,10 +491,12 @@ def main():
 
     rows = sorted(merged.values(), key=lambda r: r[4], reverse=True)  # 人気順
     new_keys = sorted(set(merged.keys()) - set(old_videos.keys()))
-    # 手動エントリは「新着」として扱わない。
+    # 手動エントリ・復元エントリは「新着」として扱わない。
+    restored_ids = {"youtube:" + r[1] for r in RESTORED_FROZEN_ROWS}
     new_keys = [k for k in new_keys
                 if k != "youtube:" + ORIGINAL_YOUTUBE_ID
-                and k not in ("youtube:" + v for v in MANUAL_WATCH_IDS)]
+                and k not in ("youtube:" + v for v in MANUAL_WATCH_IDS)
+                and k not in restored_ids]
 
     now = datetime.now(JST)
     data = {
