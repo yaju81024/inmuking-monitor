@@ -177,11 +177,7 @@ let CHART = null;
 let CHARTMODE = "normal", ORISCALE = "550";
 // 実測の記録時刻は実行間隔の都合でバラつくため、線は15分間隔の目盛りに
 // 均して描く（値は最後の実測を引き継ぐ）。実測そのものは書き換えず、
-// 吹き出しは実測点をそのまま使う。
-// 各グリッド点の末尾には「疎らフラグ」を付ける: その値の実測から次の実測
-// まで30分を超えて空いている場合に true。疎らな区間の線は点線で描き、
-// 実測が密な区間と見分けられるようにする（集計の性質が違う区間の明示）。
-const SPARSE_GAP_MS = 30 * 60000;
+// 吹き出しは実測点をそのまま使う。線は全体を通常の実線で描く。
 function resampleGrid(points, stepMs){
   if (points.length < 2) return points.map(p => [...p, false]);
   const out = [];
@@ -194,30 +190,6 @@ function resampleGrid(points, stepMs){
   }
   out.push([...points[points.length - 1], false]);
   return out;
-}
-// グリッド点を「実線の runs」と「点線の runs」に分ける（境界点は両方に含める）。
-function segmentRuns(grid, X, Y){
-  const runs = [];
-  let cur = null;
-  for (let i = 0; i < grid.length; i++){
-    const sparse = !!grid[i][grid[i].length - 1];
-    const xy = X(grid[i][0]).toFixed(1) + "," + Y(grid[i][1]).toFixed(1);
-    if (!cur || cur.sparse !== sparse){
-      if (cur) runs.push(cur);
-      cur = {sparse, pts: cur ? [cur.pts[cur.pts.length - 1], xy] : [xy]};
-    } else {
-      cur.pts.push(xy);
-    }
-  }
-  if (cur) runs.push(cur);
-  return runs;
-}
-function runsSVG(grid, X, Y, mobile){
-  return segmentRuns(grid, X, Y).map(r =>
-    r.sparse
-      ? `<polyline points="${r.pts.join(" ")}" fill="none" stroke="#ff2a3c" stroke-width="${mobile ? 3.5 : 2.5}" stroke-linecap="round" stroke-dasharray="0.5 5"/>`
-      : `<polyline points="${r.pts.join(" ")}" fill="none" stroke="#ff2a3c" stroke-width="${mobile ? 3.5 : 2.5}" stroke-linejoin="round"/>`
-  ).join("");
 }
 function drawChart(){
   if (CHARTMODE === "oricon"){ drawOriconChart(); return; }
@@ -252,9 +224,8 @@ function drawChart(){
     s += `<text x="${X(HISTORY[i][0])}" y="${H - 8}" fill="#b9b9c0" font-size="${fsize}" text-anchor="middle">${lbl}</text>`;
   }
   const grid = resampleGrid(HISTORY, 15 * 60000);
-  s += runsSVG(grid, X, Y, mobile);
-  const sn = $("#sparsenote");
-  if (sn) sn.style.display = grid.some(p => p[p.length - 1]) ? "" : "none";
+  const pts = grid.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+  s += `<polyline points="${pts}" fill="none" stroke="#ff2a3c" stroke-width="${mobile ? 3.5 : 2.5}" stroke-linejoin="round"/>`;
   const last = HISTORY[HISTORY.length - 1];
   s += `<text x="${Math.min(X(last[0]), W - padR)}" y="${Math.max(Y(last[1]) - 10, fsize + 2)}" fill="#fff" font-size="${mobile ? 17 : 13}" font-weight="700" text-anchor="end">${fmt(last[1])}回</text>`;
   s += `<g id="chartmark"></g>`;
@@ -382,8 +353,11 @@ function drawOriconChart(){
   const H = mobile ? Math.max(300, Math.min(380, Math.round(W * 1.02))) : 308;
   const padL = mobile ? 52 : 58, padR = 14, padT = 16, padB = 30;
   const iw = W - padL - padR, ih = H - padT - padB;
-  const t0 = o.wk.start, t1 = o.wk.end;
   const S = o.series;
+  // 横軸の左端は「週の始まり」ではなく記録の先頭に合わせる。今週のように
+  // 週の途中で記録が始まった場合でも、線が左端から始まるようにするため
+  // （週の終わりは到達見込みの着地点として固定のまま）。
+  const t0 = S.length ? S[0][0] : o.wk.start, t1 = o.wk.end;
   const cumMax = Math.max(...S.map(p => p[1]));
   const ymax = ORISCALE === "550" ? Math.max(5500000, o.proj)
                                   : Math.max(1650000, cumMax * 1.15, Math.min(o.proj, 5500000));
@@ -409,7 +383,8 @@ function drawOriconChart(){
     s += `<text x="${X(tt)}" y="${H - 8}" fill="#b9b9c0" font-size="${fsize}" text-anchor="${anch}">${lbl}</text>`;
   }
   const gridS = resampleGrid(S, 15 * 60000);
-  s += runsSVG(gridS, X, Y, mobile);
+  const pts = gridS.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+  s += `<polyline points="${pts}" fill="none" stroke="#ff2a3c" stroke-width="${mobile ? 3.5 : 2.5}" stroke-linejoin="round"/>`;
   const last = S[S.length - 1];
   const projY = Math.max(padT, Y(o.proj));
   s += `<line x1="${X(last[0])}" y1="${Y(last[1])}" x2="${X(t1)}" y2="${projY}" stroke="#ffffff" stroke-width="1.6" stroke-dasharray="6 4" opacity="0.85"/>`;
@@ -433,8 +408,6 @@ function wireModebar(){
     const gl = $("#growthline"), cn = $("#chartnote");
     if (gl) gl.style.display = CHARTMODE === "oricon" ? "none" : "";
     if (cn) cn.style.display = CHARTMODE === "oricon" ? "" : "none";
-    const sn2 = $("#sparsenote");
-    if (sn2 && CHARTMODE === "oricon") sn2.style.display = "none";
   };
   bar.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => { CHARTMODE = b.dataset.mode; sync(); drawChart(); }));
   bar.querySelectorAll("[data-scale]").forEach(b => b.addEventListener("click", () => { ORISCALE = b.dataset.scale; sync(); drawChart(); }));
@@ -512,8 +485,7 @@ function render(){
         </span>
       </div>
       <p class="growth" id="growthline">記録開始（${HISTORY.length ? esc(fmtDate(HISTORY[0][0])) : "—"}）から <b>+${fmt(growth)}回</b> ／ 記録 ${fmt(HISTORY.length)}点</p>
-      <p class="growth" id="sparsenote" style="display:none">※赤い点線の区間は、更新間隔が空いた期間です（実測が疎らなため、最後の実測値を引き継いでつないでいます）。</p>
-      <p class="growth" id="chartnote" style="display:none">実線＝今週の累計（実測）。赤い点線の区間は、更新間隔が空いた期間です。白の破線＝直近6時間ペースのまま伸びた場合の到達見込み、青の点線＝150万回に必要なペース。横線は150万・300万・550万回です。</p>
+      <p class="growth" id="chartnote" style="display:none">実線＝今週の累計（実測）。白の破線＝直近6時間ペースのまま伸びた場合の到達見込み、青の点線＝150万回に必要なペース。横線は150万・300万・550万回です。</p>
       <div class="chartwrap"><svg id="chart" role="img" aria-label="特設動画の再生数推移グラフ"></svg><div id="charttip"></div></div>
       <p class="charthint">グラフをタップ／なぞると、その時点の再生数・高評価・コメントが表示されます。</p>
     </div>
