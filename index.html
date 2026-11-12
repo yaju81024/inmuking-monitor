@@ -175,6 +175,21 @@ function wireThumb(container, v){
 /* ---------------- 特設グラフ ---------------- */
 let CHART = null;
 let CHARTMODE = "normal", ORISCALE = "550";
+// 実測の記録時刻は実行間隔の都合でバラつくため、線は15分間隔の目盛りに
+// 均して描く（値は最後の実測を引き継ぐ）。実測そのものは書き換えず、
+// 吹き出しは実測点をそのまま使う。
+function resampleGrid(points, stepMs){
+  if (points.length < 2) return points;
+  const out = [];
+  let j = 0;
+  const t0 = points[0][0], t1 = points[points.length - 1][0];
+  for (let t = t0; t < t1; t += stepMs){
+    while (j + 1 < points.length && points[j + 1][0] <= t) j++;
+    out.push([t, ...points[j].slice(1)]);
+  }
+  out.push(points[points.length - 1]);
+  return out;
+}
 function drawChart(){
   if (CHARTMODE === "oricon"){ drawOriconChart(); return; }
   const svg = $("#chart");
@@ -207,11 +222,9 @@ function drawChart(){
     const lbl = (t.getMonth() + 1) + "/" + t.getDate();
     s += `<text x="${X(HISTORY[i][0])}" y="${H - 8}" fill="#b9b9c0" font-size="${fsize}" text-anchor="middle">${lbl}</text>`;
   }
-  const pts = HISTORY.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+  const grid = resampleGrid(HISTORY, 15 * 60000);
+  const pts = grid.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
   s += `<polyline points="${pts}" fill="none" stroke="#ff2a3c" stroke-width="${mobile ? 3.5 : 2.5}" stroke-linejoin="round"/>`;
-  for (const p of HISTORY){
-    s += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${mobile ? 3.4 : 2.4}" fill="#ff2a3c"><title>${esc(fmtDate(p[0]))}：${fmt(p[1])}回</title></circle>`;
-  }
   const last = HISTORY[HISTORY.length - 1];
   s += `<text x="${Math.min(X(last[0]), W - padR)}" y="${Math.max(Y(last[1]) - 10, fsize + 2)}" fill="#fff" font-size="${mobile ? 17 : 13}" font-weight="700" text-anchor="end">${fmt(last[1])}回</text>`;
   s += `<g id="chartmark"></g>`;
@@ -365,11 +378,9 @@ function drawOriconChart(){
     const anch = tt === t1 ? "end" : "middle";
     s += `<text x="${X(tt)}" y="${H - 8}" fill="#b9b9c0" font-size="${fsize}" text-anchor="${anch}">${lbl}</text>`;
   }
-  const pts = S.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+  const gridS = resampleGrid(S, 15 * 60000);
+  const pts = gridS.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
   s += `<polyline points="${pts}" fill="none" stroke="#ff2a3c" stroke-width="${mobile ? 3.5 : 2.5}" stroke-linejoin="round"/>`;
-  for (const p of S){
-    s += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${mobile ? 3.4 : 2.4}" fill="#ff2a3c"><title>${esc(fmtDate(p[0]))}：週間累計 ${fmt(p[1])}回</title></circle>`;
-  }
   const last = S[S.length - 1];
   const projY = Math.max(padT, Y(o.proj));
   s += `<line x1="${X(last[0])}" y1="${Y(last[1])}" x2="${X(t1)}" y2="${projY}" stroke="#ffffff" stroke-width="1.6" stroke-dasharray="6 4" opacity="0.85"/>`;
