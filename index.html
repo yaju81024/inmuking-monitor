@@ -179,16 +179,15 @@ let CHARTMODE = "normal", ORISCALE = "550";
 // 均して描く（値は最後の実測を引き継ぐ）。実測そのものは書き換えず、
 // 吹き出しは実測点をそのまま使う。線は全体を通常の実線で描く。
 function resampleGrid(points, stepMs){
-  if (points.length < 2) return points.map(p => [...p, false]);
+  if (points.length < 2) return points;
   const out = [];
   let j = 0;
   const t0 = points[0][0], t1 = points[points.length - 1][0];
   for (let t = t0; t < t1; t += stepMs){
     while (j + 1 < points.length && points[j + 1][0] <= t) j++;
-    const sparse = j + 1 < points.length && (points[j + 1][0] - points[j][0]) > SPARSE_GAP_MS;
-    out.push([t, ...points[j].slice(1), sparse]);
+    out.push([t, ...points[j].slice(1)]);
   }
-  out.push([...points[points.length - 1], false]);
+  out.push(points[points.length - 1]);
   return out;
 }
 function drawChart(){
