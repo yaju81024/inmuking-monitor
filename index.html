@@ -241,6 +241,11 @@
     .btn:hover{background:#f1ebdd;border-radius:6px}
     .tbtn:hover{color:var(--ink);background:#f1ebdd;border-radius:6px}
   }
+  .card{position:relative;z-index:0}
+  .tintglow{position:absolute;top:0;left:0;width:100%;aspect-ratio:16/9;border-radius:6px;overflow:hidden;z-index:-1;opacity:0;transition:opacity .3s ease;pointer-events:none}
+  .tintglow img{width:100%;height:100%;object-fit:cover;filter:blur(22px) saturate(1.5);transform:scale(1.15)}
+  @media (hover:hover){ .card:hover .tintglow{opacity:.55} }
+  .card:active .tintglow{opacity:.55}
   .card:active .thumb{box-shadow:0 14px 34px -12px var(--tintA,rgba(43,38,32,.35))}
   .card:active .thumb::after{opacity:.14}
   .playbtn:active{transform:translate(-50%,-50%) scale(.94)}
@@ -693,18 +698,23 @@ Promise.all([
       if(mx===r) h=(g-b)/d+(g<b?6:0); else if(mx===g) h=(b-r)/d+2; else h=(r-g)/d+4; h/=6; }
     return [h,s,l]; }
   function hslCss(h,s,l,a){ return 'hsla(' + Math.round(h*360) + ',' + Math.round(s*100) + '%,' + Math.round(l*100) + '%,' + a + ')'; }
-  function apply(card, img){
-    try{
-      var c=document.createElement('canvas'); c.width=c.height=12;
-      var x=c.getContext('2d'); x.drawImage(img,0,0,12,12);
-      var d=x.getImageData(0,0,12,12).data, r=0,g=0,b=0,n=0;
-      for(var i=0;i<d.length;i+=4){ r+=d[i]; g+=d[i+1]; b+=d[i+2]; n++; }
-      var hsl=rgbToHsl(r/n, g/n, b/n);
-      var s=Math.min(0.75, Math.max(0.35, hsl[1]));
-      card.style.setProperty('--tint', hslCss(hsl[0], s, 0.45, 1));
-      card.style.setProperty('--tintA', hslCss(hsl[0], s, 0.45, 0.55));
-      card.style.setProperty('--tintTx', hslCss(hsl[0], s, 0.30, 1));
-    }catch(e){ /* CORS等で読めないサムネイルは既定の影のまま */ }
+  function trySample(card, src){
+    var probe=new Image();
+    probe.crossOrigin='anonymous';
+    probe.onload=function(){
+      try{
+        var c=document.createElement('canvas'); c.width=c.height=12;
+        var x=c.getContext('2d'); x.drawImage(probe,0,0,12,12);
+        var d=x.getImageData(0,0,12,12).data, r=0,g=0,b=0,n=0;
+        for(var i=0;i<d.length;i+=4){ r+=d[i]; g+=d[i+1]; b+=d[i+2]; n++; }
+        var hsl=rgbToHsl(r/n, g/n, b/n);
+        var s=Math.min(0.75, Math.max(0.35, hsl[1]));
+        card.style.setProperty('--tint', hslCss(hsl[0], s, 0.45, 1));
+        card.style.setProperty('--tintA', hslCss(hsl[0], s, 0.45, 0.55));
+        card.style.setProperty('--tintTx', hslCss(hsl[0], s, 0.30, 1));
+      }catch(e){ /* pixel read blocked: glow still works */ }
+    };
+    probe.src=src;
   }
   function scan(){
     document.querySelectorAll('#list .card').forEach(function(card){
@@ -712,10 +722,13 @@ Promise.all([
       var img=card.querySelector('.thumb img');
       if(!img || !img.src) return;
       card.dataset.tintDone='1';
-      var probe=new Image();
-      probe.crossOrigin='anonymous';
-      probe.onload=function(){ apply(card, probe); };
-      probe.src=img.src;
+      var glow=document.createElement('div');
+      glow.className='tintglow';
+      var cl=document.createElement('img');
+      cl.src=img.src; cl.alt='';
+      glow.appendChild(cl);
+      card.insertBefore(glow, card.firstChild);
+      trySample(card, img.src);
     });
   }
   var list=document.getElementById('list');
