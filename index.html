@@ -22,7 +22,7 @@
     --line-strong:#c6bda6;
     --accent:#b3271e;
     --accent-deep:#8f1d17;
-    --plate:#1a1712;
+    --plate:#211d18;
     --paper:#fffdf8;
   }
   *{box-sizing:border-box}
@@ -69,18 +69,21 @@
     .featured-body .player{align-self:start;position:sticky;top:24px}
   }
   .featured-body>*{min-width:0}
-  .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:3px;overflow:hidden;align-self:start}
+  .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;align-self:start}
   .player img{width:100%;height:100%;object-fit:cover;display:block}
   .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .playbtn{
     position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    width:58px;height:58px;border:0;border-radius:50%;
-    background:var(--accent);cursor:pointer;
+    width:58px;height:58px;border-radius:50%;
+    background:rgba(24,21,18,.42);border:1px solid rgba(255,255,255,.6);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    cursor:pointer;
     display:flex;align-items:center;justify-content:center;
-    transition:background .15s ease, transform .15s ease;
+    transition:background .18s ease, transform .18s ease, border-color .18s ease;
   }
-  .playbtn::before{content:"";border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent #fff;margin-left:3px}
-  .playbtn:hover{background:var(--accent-deep)}
+  .playbtn::before{content:"";border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent #fff;margin-left:3px;transition:border-color .18s ease}
+  .playbtn:hover{background:rgba(255,255,255,.94);border-color:rgba(255,255,255,.94);transform:translate(-50%,-50%) scale(1.06)}
+  .playbtn:hover::before{border-color:transparent transparent transparent var(--ink)}
   .featured-info h2{
     font-size:20px;font-weight:700;margin:2px 0 10px;line-height:1.6;
     overflow-wrap:anywhere;color:var(--ink);letter-spacing:.01em;
@@ -128,7 +131,16 @@
   .chartbox h3{margin:0 0 6px;font-size:17px;font-weight:700;color:var(--ink);letter-spacing:.02em}
   .chartbox .growth{font-size:12px;color:var(--sub);margin:0 0 12px}
   .chartbox .growth b{color:var(--accent-deep);font-weight:700}
-  .chartwrap{position:relative;background:var(--plate);border-radius:4px;padding:20px 16px 18px}
+  .chartwrap{
+    position:relative;background:var(--plate);
+    border:1px solid rgba(33,30,26,.85);border-radius:8px;
+    box-shadow:0 1px 2px rgba(33,30,26,.05), 0 16px 36px -20px rgba(33,30,26,.35);
+    padding:22px 18px 18px;
+  }
+  /* グラフ内部の色も面に合わせて整える（線のネオン感と格子の強さを落とす） */
+  #chart line[stroke="#3a3a40"]{stroke:#3b362d}
+  #chart polyline[stroke="#ff2a3c"]{stroke:#e23a30}
+  #chartmark circle[fill="#ff2a3c"]{fill:#e23a30}
   #chart{width:100%;display:block;touch-action:pan-y;cursor:crosshair}
   #charttip{
     position:absolute;display:none;pointer-events:none;
@@ -174,7 +186,7 @@
   /* ---------- 一覧 ---------- */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:48px 28px}
   .card{background:transparent;border:0;border-radius:0;overflow:visible;display:flex;flex-direction:column}
-  .card .thumb{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:3px;overflow:hidden}
+  .card .thumb{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden}
   .card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
   .card:hover .thumb img{transform:scale(1.025)}
   .card .thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
