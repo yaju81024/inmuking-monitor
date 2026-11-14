@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-11-15 00:15 JST",
- "updatedAtMs": 1794669307929,
+ "updatedAt": "2026-11-15 00:56 JST",
+ "updatedAtMs": 1794671798480,
  "total": 1096,
  "youtube": 767,
  "niconico": 329,
@@ -8,7 +8,7 @@
  "lastSearchMs": 1794657114226,
  "lastPopularMs": 1794645155436,
  "fetchedAt": {
-  "1vnTy_ll7Aw": 1794669166810,
+  "1vnTy_ll7Aw": 1794671657741,
   "-6wUi9zrTJc": 1794645155436,
   "-U9cGt6OtQc": 1794659918609,
   "-V_2Xw_EEQc": 1794659918609,
@@ -28,7 +28,7 @@
   "0VpJ5gaZTxE": 1794663357881,
   "0_5DrKaSHwg": 1794666355199,
   "0emuso7BdE8": 1794666355199,
-  "0ibyscaGtf0": 1794642271886,
+  "0ibyscaGtf0": 1794671657741,
   "0l_zJgJDCrI": 1794666355199,
   "0xU2ZXQFvb0": 1794666355199,
   "0zEZXokLaPM": 1794666355199,
@@ -41,8 +41,8 @@
   "1ZCc3w6uz5o": 1794669166810,
   "1cKAKrJC6QE": 1794669166810,
   "1ddI5ByxmfA": 1794666355199,
-  "1tIhkZrusJM": 1794642271886,
-  "2KHMvzrgH1M": 1794642271886,
+  "1tIhkZrusJM": 1794671657741,
+  "2KHMvzrgH1M": 1794671657741,
   "2dmO25p688k": 1794666355199,
   "36WA1ztTGDk": 1794645155436,
   "37bkqOSvNLs": 1794657114226,
@@ -323,7 +323,7 @@
   "ZBX8qTgCFMA": 1794659918609,
   "ZHYzFU2YAN8": 1794645155436,
   "ZVO59I2ncDg": 1794659918609,
-  "ZWTeq4X71gs": 1794637924891,
+  "ZWTeq4X71gs": 1794671657741,
   "ZeYn2pSw7kk": 1794659918609,
   "Zf09xxdlFj0": 1794659918609,
   "ZkGlGEl-vRQ": 1794659918609,
@@ -332,15 +332,15 @@
   "_Qd5YoeLemk": 1794659918609,
   "_UXiixgqvCs": 1794659918609,
   "_ifTrX10LZI": 1794645155436,
-  "_s9UJFQJ_cI": 1794637924891,
+  "_s9UJFQJ_cI": 1794671657741,
   "aMEWdrzZd9g": 1794663357881,
   "abs2_65uzkU": 1794663357881,
   "ae5nmNU5AWo": 1794663357881,
   "afhKaE3lAPg": 1794663357881,
   "akz0q1yMjRw": 1794663357881,
-  "awb7G7MpeXU": 1794642271886,
+  "awb7G7MpeXU": 1794671657741,
   "b-PNFO97Tas": 1794546654197,
-  "b30cob7P19I": 1794642271886,
+  "b30cob7P19I": 1794671657741,
   "b4EF65Ra5Uo": 1794657114226,
   "bIblo4NDp1I": 1794663357881,
   "bLww1ZC0MX8": 1794663357881,
@@ -351,7 +351,7 @@
   "bWN7KcxHhHo": 1794663357881,
   "bk_hMaWnjAE": 1794663357881,
   "bssutLmOifM": 1794663357881,
-  "bsz_dscRiO0": 1794637924891,
+  "bsz_dscRiO0": 1794671657741,
   "cH4IjTQTgAM": 1794645155436,
   "cWAh4jQlAT0": 1794663357881,
   "c_15G9SulVw": 1794663357881,
@@ -368,7 +368,7 @@
   "dmi6TLaUsjE": 1794663357881,
   "dn97b9UITy0": 1794663357881,
   "dxvCaC-nWQE": 1794663357881,
-  "e55yrybWojE": 1794642271886,
+  "e55yrybWojE": 1794671657741,
   "eQ1xTCQN6oQ": 1794663357881,
   "eeNSWoMH-wo": 1794663357881,
   "ehLu5_ccKzY": 1794645155436,
@@ -399,7 +399,7 @@
   "hx6u8fRCYmU": 1794666355199,
   "i5SFsBQrGMs": 1794666355199,
   "iH_X4Vm77JU": 1794645155436,
-  "iIp8Sj-9IGQ": 1794642271886,
+  "iIp8Sj-9IGQ": 1794671657741,
   "iN0bA-ZNTAM": 1794666355199,
   "iQjixtvwgUI": 1794666355199,
   "iZLzJ-kiBds": 1794666355199,
@@ -418,7 +418,7 @@
   "k9AFIb_oCHI": 1794666355199,
   "kBz5p0Mfanc": 1794645155436,
   "kCjB4tfRtjI": 1794666355199,
-  "kE7VbO04Ecw": 1794642271886,
+  "kE7VbO04Ecw": 1794671657741,
   "kJkiXhUCUcM": 1794666355199,
   "kUBLCQJJ1lE": 1794666355199,
   "kVr2vf1ook8": 1794666355199,
@@ -426,8 +426,8 @@
   "kivnySP5jhY": 1794657114226,
   "kseNpe-zIoU": 1794666355199,
   "kwH0fiuG-ZI": 1794666355199,
-  "lOvWqsGO4hk": 1794642271886,
-  "lVT-N6bdx7I": 1794637924891,
+  "lOvWqsGO4hk": 1794671657741,
+  "lVT-N6bdx7I": 1794671657741,
   "lcYFtxNbBhc": 1794666355199,
   "lkrJFDKEeTk": 1794666355199,
   "llDt1TYvTN0": 1794657114226,
@@ -447,7 +447,7 @@
   "nBgWwHkOe3I": 1794669166810,
   "nFCd93OaHN4": 1794669166810,
   "nNAUjxWGTGg": 1794657114226,
-  "nU3U0XFJZQs": 1794642271886,
+  "nU3U0XFJZQs": 1794671657741,
   "naHfW6HXYzQ": 1794479532988,
   "naylGgJRr9I": 1794669166810,
   "njF_K3JUM88": 1794669166810,
@@ -457,7 +457,7 @@
   "oLzI_84N8S8": 1794440146575,
   "oMzPPU_D_n0": 1794645155436,
   "oO1WoMxTQPw": 1794669166810,
-  "oVEhJLQOIA4": 1794637924891,
+  "oVEhJLQOIA4": 1794671657741,
   "o_9096QLK7g": 1794587777999,
   "o_Tkp5odcLg": 1794657114226,
   "o_hnrR8rohs": 1794669166810,
@@ -470,39 +470,39 @@
   "pCbZV-gF_lU": 1794657114226,
   "pGkbzn1GlbQ": 1794645155436,
   "pHcHux5duRY": 1794669166810,
-  "pVBN4Al-29M": 1794637924891,
-  "pgEn0AFyigM": 1794637924891,
+  "pVBN4Al-29M": 1794671657741,
+  "pgEn0AFyigM": 1794671657741,
   "pka3wHEZSto": 1794669166810,
   "q2JPbXYonq4": 1794645155436,
   "q4fSLHIfhR0": 1794645155436,
-  "qPBAGmvauZE": 1794637924891,
-  "qc8hg5NEJh4": 1794637924891,
-  "qcYKcmxCg5s": 1794637924891,
+  "qPBAGmvauZE": 1794671657741,
+  "qc8hg5NEJh4": 1794671657741,
+  "qcYKcmxCg5s": 1794671657741,
   "qdBOMjBHXOI": 1794645155436,
   "qxjHgs_LqhY": 1794657114226,
-  "qyDwseHC3aE": 1794637924891,
+  "qyDwseHC3aE": 1794671657741,
   "qzwfKVYLMqQ": 1794645155436,
-  "r1qlb0pR2OU": 1794642271886,
-  "r88Nkk9dtzc": 1794642271886,
+  "r1qlb0pR2OU": 1794671657741,
+  "r88Nkk9dtzc": 1794671657741,
   "rC0KcALi5AU": 1794645155436,
   "rcUtZAdbxcs": 1794657114226,
-  "rjjyqWNZpvU": 1794642271886,
-  "rr2COKy7Zxw": 1794642271886,
-  "rrdxAm7C3Hg": 1794642271886,
-  "rtkgonp4Ul4": 1794642271886,
-  "ru-daLTTNig": 1794642271886,
+  "rjjyqWNZpvU": 1794671657741,
+  "rr2COKy7Zxw": 1794671657741,
+  "rrdxAm7C3Hg": 1794671657741,
+  "rtkgonp4Ul4": 1794671657741,
+  "ru-daLTTNig": 1794671657741,
   "rxfmpZPYdG0": 1794559173116,
   "s2s5URruQpU": 1794663357881,
-  "s62NZtAWg44": 1794642271886,
-  "s9yGUymgC_g": 1794642271886,
-  "sXKal7i8yWY": 1794642271886,
-  "scAxj2iAcnM": 1794642271886,
+  "s62NZtAWg44": 1794671657741,
+  "s9yGUymgC_g": 1794671657741,
+  "sXKal7i8yWY": 1794671657741,
+  "scAxj2iAcnM": 1794671657741,
   "scuo5ER-_vo": 1794645155436,
-  "seQ_nBa_gxE": 1794642271886,
-  "skI6qXRakxk": 1794642271886,
-  "skcmy_KP6PY": 1794642271886,
-  "sp7J3pEZJdc": 1794642271886,
-  "sqNQ7ft0550": 1794642271886,
+  "seQ_nBa_gxE": 1794671657741,
+  "skI6qXRakxk": 1794671657741,
+  "skcmy_KP6PY": 1794671657741,
+  "sp7J3pEZJdc": 1794671657741,
+  "sqNQ7ft0550": 1794671657741,
   "t2ttxooJsGI": 1794657114226,
   "t8kU8kkRLgQ": 1794645155436,
   "tEGexIZYPzI": 1794657114226,
@@ -529,9 +529,9 @@
   "w5G990T3QIg": 1794645155436,
   "w74HTbnjEbw": 1794645155436,
   "wmK6Xh2658c": 1794645155436,
-  "wmLUjlgw0c8": 1794642271886,
+  "wmLUjlgw0c8": 1794671657741,
   "wr7u4Xi_x0w": 1794645155436,
-  "xFc2GH3xvOg": 1794642271886,
+  "xFc2GH3xvOg": 1794671657741,
   "xfE56krGCL0": 1794645155436,
   "xwk1vJpyrJo": 1794645155436,
   "y7CnbWrxF3s": 1794645155436,
@@ -563,16 +563,16 @@
   "HBcUu9rhz9Y": 1794648452308,
   "o6WaAM5hdc8": 1794651372680,
   "HuC3FtchFPw": 1794669166810,
-  "lkvcQ_ftK6M": 1794637924891,
-  "yI4wqFpPDKo": 1794642271886,
+  "lkvcQ_ftK6M": 1794671657741,
+  "yI4wqFpPDKo": 1794671657741,
   "yZ2IC3TTbFc": 1794657114226,
-  "kjDC913VUDg": 1794637924891,
-  "c517dC4LFBk": 1794642271886,
+  "kjDC913VUDg": 1794671657741,
+  "c517dC4LFBk": 1794671657741,
   "AtzQ0SNClYU": 1794657114226,
   "RkcI7ase0H0": 1794657114226,
   "OT9IatQj0Bw": 1794657114226,
   "4YXTQU8_rnE": 1794645155436,
-  "cvAwEJUmVSU": 1794642271886,
+  "cvAwEJUmVSU": 1794671657741,
   "EyQfcb-sJp8": 1794483474379,
   "EIJAqOngxEk": 1794648452308,
   "iqavH42Nce0": 1794648452308,
@@ -582,7 +582,7 @@
   "5Oqj9DiFJ4c": 1794645155436,
   "dAp6SpplLiY": 1794648452308,
   "oka7cC4_tdk": 1794651372680,
-  "vrOOUS8KrjI": 1794642271886,
+  "vrOOUS8KrjI": 1794671657741,
   "OGefMPIVFRI": 1794669166810,
   "-GzyUSUHzew": 1794651372680,
   "KOm9MP4p4-E": 1794669166810,
@@ -601,9 +601,9 @@
   "TcaLGvswx3c": 1794669166810,
   "j-4ummev2EQ": 1794657114226,
   "RyrvNW4owWs": 1794669166810,
-  "kkVq6-Yef1k": 1794642271886,
+  "kkVq6-Yef1k": 1794671657741,
   "U3mqL7ppjNY": 1794648452308,
-  "wRG6ALzBHqQ": 1794642271886,
+  "wRG6ALzBHqQ": 1794671657741,
   "hTIBNXwjD0o": 1794657114226,
   "y5p3KjLSJwE": 1794651372680,
   "ZcVdqM383Ek": 1794657114226,
@@ -618,15 +618,15 @@
   "R5H3fIdef4k": 1794648452308,
   "KOM5BJ59xq8": 1794648452308,
   "G5KQU5HU-vI": 1794648452308,
-  "0GatDqSTUyg": 1794642271886,
+  "0GatDqSTUyg": 1794671657741,
   "jfoCIJB-xSo": 1794651372680,
   "ucMRVa5MdfU": 1794651372680,
   "tIyqyeaXsxI": 1794651372680,
   "7iCKKQfkWFA": 1794648452308,
   "ncz4KBDANyo": 1794651372680,
-  "f9RLBjrkfog": 1794637924891,
+  "f9RLBjrkfog": 1794671657741,
   "zvgQw8WMG7M": 1794651372680,
-  "o84gtlyfAbk": 1794637924891,
+  "o84gtlyfAbk": 1794671657741,
   "iAT1204TqNo": 1794657114226,
   "m-v2NXN1eOw": 1794657114226,
   "iO7kziWYXDA": 1794657114226,
@@ -750,9 +750,9 @@
   "publishedAt": 1794142628000,
   "thumbnailUrl": "https://i.ytimg.com/vi/RkcI7ase0H0/maxresdefault.jpg",
   "watchUrl": "https://www.youtube.com/watch?v=RkcI7ase0H0",
-  "viewCount": 3045324,
-  "likeCount": 125041,
-  "commentCount": 21437,
+  "viewCount": 3072604,
+  "likeCount": 125272,
+  "commentCount": 21479,
   "description": "INMU KINGから、削除の原因・問題になりうる性的要素を排除したものです。問題のある歌詞の音声部分全てに規制を入れています。本動画はYouTubeコミュニティガイドラインの「下品な表現に関するポリシー」に一切違反していません。\n\n※INMU KINGの二次利用における利用規約については、ニコニコモンズを参照してください。\n\n#例のアレ #ai #野獣先輩 #INMUKING",
   "originalNiconicoUrl": "https://www.nicovideo.jp/watch/sm46647529"
  },
@@ -818,8 +818,8 @@
    "1vnTy_ll7Aw",
    "お前嘘臭ぇんだよスギ",
    "チバニャンの波動チャンネル",
-   5132388,
-   24107,
+   5132831,
+   24110,
    1787308289000,
    "https://i.ytimg.com/vi/1vnTy_ll7Aw/hqdefault.jpg",
    "https://www.youtube.com/watch?v=1vnTy_ll7Aw",
@@ -1646,8 +1646,8 @@
    "s62NZtAWg44",
    "INMU KING(情報漏洩) #ai ",
    "猫なで声",
-   1055221,
-   10088,
+   1056464,
+   10095,
    1791177403000,
    "https://i.ytimg.com/vi/s62NZtAWg44/hqdefault.jpg",
    "https://www.youtube.com/watch?v=s62NZtAWg44"
@@ -1734,7 +1734,7 @@
    "skcmy_KP6PY",
    "INMU KING 玉城ティナ・海外アカウントの6本・とある皇族の方まで踊らされる…【全員解説パート35】#INMUKING",
    "地球(公式)",
-   1009957,
+   1010414,
    6490,
    1791630040000,
    "https://i.ytimg.com/vi/skcmy_KP6PY/hqdefault.jpg",
@@ -2107,6 +2107,17 @@
   ],
   [
    "youtube",
+   "pVBN4Al-29M",
+   "合唱 『 INMU KING 』YAJU-MC from 「 #inmuking 」 #インムキング #かんたんピアノ #弾いてみた #ピアノ #piano",
+   "あにめんま-Animenma- (Anime Piano)",
+   685279,
+   5798,
+   1793012903000,
+   "https://i.ytimg.com/vi/pVBN4Al-29M/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=pVBN4Al-29M"
+  ],
+  [
+   "youtube",
    "maufWaa2QNc",
    "INMU KING(タイムズカー) #ai ",
    "猫なで声",
@@ -2140,22 +2151,11 @@
   ],
   [
    "youtube",
-   "pVBN4Al-29M",
-   "合唱 『 INMU KING 』YAJU-MC from 「 #inmuking 」 #インムキング #かんたんピアノ #弾いてみた #ピアノ #piano",
-   "あにめんま-Animenma- (Anime Piano)",
-   669825,
-   5691,
-   1793012903000,
-   "https://i.ytimg.com/vi/pVBN4Al-29M/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=pVBN4Al-29M"
-  ],
-  [
-   "youtube",
    "ru-daLTTNig",
    "INMU KING / アイドル風アレンジ",
    "品性が!!!",
-   668778,
-   6762,
+   669789,
+   6770,
    1786708809000,
    "https://i.ytimg.com/vi/ru-daLTTNig/hqdefault.jpg",
    "https://www.youtube.com/watch?v=ru-daLTTNig"
@@ -2418,8 +2418,8 @@
    "rr2COKy7Zxw",
    "【Part3/4】INMU KINGが中国でも人気　淫夢の世界交流　田所浩二　野獣先輩　#淫夢　#野獣先輩　#INMUKING",
    "東西南北の将軍かね正恩",
-   455176,
-   6173,
+   456161,
+   6182,
    1791104986000,
    "https://i.ytimg.com/vi/rr2COKy7Zxw/hqdefault.jpg",
    "https://www.youtube.com/watch?v=rr2COKy7Zxw"
@@ -2429,8 +2429,8 @@
    "s9yGUymgC_g",
    "INMU KING（🇰🇵 Ver.）",
    "しろAI",
-   452832,
-   5386,
+   453619,
+   5392,
    1789729221000,
    "https://i.ytimg.com/vi/s9yGUymgC_g/hqdefault.jpg",
    "https://www.youtube.com/watch?v=s9yGUymgC_g"
@@ -2649,8 +2649,8 @@
    "r88Nkk9dtzc",
    "YAJU KING/INMU KING",
    "めめろろ",
-   335870,
-   6613,
+   336961,
+   6631,
    1787825972000,
    "https://i.ytimg.com/vi/r88Nkk9dtzc/hqdefault.jpg",
    "https://www.youtube.com/watch?v=r88Nkk9dtzc"
@@ -3036,8 +3036,8 @@
    "sqNQ7ft0550",
    "【悲報】ヤリラさん、渋谷スクランブルにて大音量INMUKINGを流してしまう… #おもしろ #ダンス #海外の反応",
    "とある家庭の自宅警備員",
-   158075,
-   2510,
+   160338,
+   2529,
    1794034801000,
    "https://i.ytimg.com/vi/sqNQ7ft0550/hqdefault.jpg",
    "https://www.youtube.com/watch?v=sqNQ7ft0550"
@@ -3143,6 +3143,17 @@
   ],
   [
    "youtube",
+   "c517dC4LFBk",
+   "INMU KING(ななえママ) #ai ",
+   "猫なで声",
+   123081,
+   659,
+   1794376967000,
+   "https://i.ytimg.com/vi/c517dC4LFBk/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=c517dC4LFBk"
+  ],
+  [
+   "youtube",
    "pCbZV-gF_lU",
    "台湾の高校生 新入生歓迎会で「INMU KING」「HOT LIMIT」を披露",
    "Akasatana",
@@ -3151,17 +3162,6 @@
    1793587334000,
    "https://i.ytimg.com/vi/pCbZV-gF_lU/hqdefault.jpg",
    "https://www.youtube.com/watch?v=pCbZV-gF_lU"
-  ],
-  [
-   "youtube",
-   "c517dC4LFBk",
-   "INMU KING(ななえママ) #ai ",
-   "猫なで声",
-   120652,
-   653,
-   1794376967000,
-   "https://i.ytimg.com/vi/c517dC4LFBk/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=c517dC4LFBk"
   ],
   [
    "youtube",
@@ -3241,6 +3241,17 @@
    "https://www.youtube.com/watch?v=exhoXqPC0xQ"
   ],
   [
+   "youtube",
+   "qcYKcmxCg5s",
+   "INMU　KING修正版を見るむらまこ【2026/11/09】",
+   "むらまこ楽しい切り抜き",
+   105022,
+   706,
+   1794228936000,
+   "https://i.ytimg.com/vi/qcYKcmxCg5s/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=qcYKcmxCg5s"
+  ],
+  [
    "niconico",
    "sm46987181",
    "間違えて知らない人の家に来てしまったINMU KING",
@@ -3250,17 +3261,6 @@
    1793427000000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/46987181/46987181.97766268",
    "https://www.nicovideo.jp/watch/sm46987181"
-  ],
-  [
-   "youtube",
-   "qcYKcmxCg5s",
-   "INMU　KING修正版を見るむらまこ【2026/11/09】",
-   "むらまこ楽しい切り抜き",
-   98642,
-   678,
-   1794228936000,
-   "https://i.ytimg.com/vi/qcYKcmxCg5s/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=qcYKcmxCg5s"
   ],
   [
    "youtube",
@@ -3418,6 +3418,17 @@
   ],
   [
    "youtube",
+   "lOvWqsGO4hk",
+   "プロ奏者が『INMU KING』をNuEVI R2で演奏してみた結果…www【凛子】",
+   "凛子切り抜きショート",
+   77172,
+   917,
+   1794301232000,
+   "https://i.ytimg.com/vi/lOvWqsGO4hk/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=lOvWqsGO4hk"
+  ],
+  [
+   "youtube",
    "TVYXPPrjdpE",
    "【朗報】電化製品店にてINMUKINGが流されてしまうwww #おもしろ #話題",
    "とある家庭の自宅警備員",
@@ -3443,22 +3454,11 @@
    "qc8hg5NEJh4",
    "INMU KINGとクレヨンしんちゃんのオープニング合わせてみた！2 #野獣先輩 #inmuking #クレヨンしんちゃん #shorts",
    "ぽん[気まぐれ投稿]",
-   75629,
+   75630,
    1317,
    1793671236000,
    "https://i.ytimg.com/vi/qc8hg5NEJh4/hqdefault.jpg",
    "https://www.youtube.com/watch?v=qc8hg5NEJh4"
-  ],
-  [
-   "youtube",
-   "lOvWqsGO4hk",
-   "プロ奏者が『INMU KING』をNuEVI R2で演奏してみた結果…www【凛子】",
-   "凛子切り抜きショート",
-   73942,
-   881,
-   1794301232000,
-   "https://i.ytimg.com/vi/lOvWqsGO4hk/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=lOvWqsGO4hk"
   ],
   [
    "niconico",
@@ -4033,6 +4033,17 @@
    "https://www.youtube.com/watch?v=RrsS7YmkPwA"
   ],
   [
+   "youtube",
+   "bsz_dscRiO0",
+   "ドライブしながら「INMU KING」ハモってみた #inmuking  #いいおと #アカペラ #野獣先輩  #田所浩二",
+   "いい大人たち。(あじかけらいる)",
+   30663,
+   335,
+   1793268000000,
+   "https://i.ytimg.com/vi/bsz_dscRiO0/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=bsz_dscRiO0"
+  ],
+  [
    "niconico",
    "sm46713666",
    "INMU KING 踊ってみた",
@@ -4042,17 +4053,6 @@
    1787480340000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/46713666/46713666.16582411",
    "https://www.nicovideo.jp/watch/sm46713666"
-  ],
-  [
-   "youtube",
-   "bsz_dscRiO0",
-   "ドライブしながら「INMU KING」ハモってみた #inmuking  #いいおと #アカペラ #野獣先輩  #田所浩二",
-   "いい大人たち。(あじかけらいる)",
-   30193,
-   330,
-   1793268000000,
-   "https://i.ytimg.com/vi/bsz_dscRiO0/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=bsz_dscRiO0"
   ],
   [
    "youtube",
@@ -4254,6 +4254,17 @@
   ],
   [
    "youtube",
+   "ZWTeq4X71gs",
+   "INMU KING(ダイスケ) #ai ",
+   "猫なで声",
+   23865,
+   307,
+   1794392741000,
+   "https://i.ytimg.com/vi/ZWTeq4X71gs/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=ZWTeq4X71gs"
+  ],
+  [
+   "youtube",
    "-jsHgtmlGt4",
    "【MV】 INMU KING (修正版)/YAJU-MC",
    "やじゅまんサブ　偽物",
@@ -4295,17 +4306,6 @@
    1792160762000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/46933039/46933039.7780742",
    "https://www.nicovideo.jp/watch/sm46933039"
-  ],
-  [
-   "youtube",
-   "ZWTeq4X71gs",
-   "INMU KING(ダイスケ) #ai ",
-   "猫なで声",
-   22733,
-   298,
-   1794392741000,
-   "https://i.ytimg.com/vi/ZWTeq4X71gs/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=ZWTeq4X71gs"
   ],
   [
    "niconico",
@@ -5001,6 +5001,17 @@
    "https://www.nicovideo.jp/watch/sm46735075"
   ],
   [
+   "youtube",
+   "b30cob7P19I",
+   "【MV】INMU KING - Mokkorea【AI】",
+   "めめろろ",
+   9565,
+   284,
+   1794384023000,
+   "https://i.ytimg.com/vi/b30cob7P19I/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=b30cob7P19I"
+  ],
+  [
    "niconico",
    "sm46808572",
    "INMU KING English ver(Fanmade)",
@@ -5291,7 +5302,7 @@
    "rrdxAm7C3Hg",
    "AI楽曲INMU KING ピー音で隠した修正版 17日ぶりに復活 #INMUKING #やじゅまん #AI楽曲 #YouTube削除 #ピー音",
    "くらちゃん",
-   7161,
+   7205,
    138,
    1794227374000,
    "https://i.ytimg.com/vi/rrdxAm7C3Hg/hqdefault.jpg",
@@ -5574,6 +5585,17 @@
   ],
   [
    "youtube",
+   "0GatDqSTUyg",
+   "INMU KING🎵 やじゅまん🎶 #動じない猫 #信頼関係 アクロバット×バランスボール 頭の中で楽曲を想像&表現🧏‍♀️",
+   "ミケクロさんの日常(5匹の猫とバランスボール娘と新人騎手の息子の記録)",
+   5559,
+   203,
+   1794495865000,
+   "https://i.ytimg.com/vi/0GatDqSTUyg/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=0GatDqSTUyg"
+  ],
+  [
+   "youtube",
    "unp0MtdKSbY",
    "【MV】INMU KING / YAJU-MC　デスドルノートこと磨童まさをアノニマス嫁のセクシー動画出演を暴露して訴えられてしまうVer.　feat.へずまりゅう",
    "かったん(｡•ㅅ•｡)ノ♡帝国",
@@ -5629,14 +5651,14 @@
   ],
   [
    "youtube",
-   "0GatDqSTUyg",
-   "INMU KING🎵 やじゅまん🎶 #動じない猫 #信頼関係 アクロバット×バランスボール 頭の中で楽曲を想像&表現🧏‍♀️",
-   "ミケクロさんの日常(5匹の猫とバランスボール娘と新人騎手の息子の記録)",
-   5368,
-   193,
-   1794495865000,
-   "https://i.ytimg.com/vi/0GatDqSTUyg/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=0GatDqSTUyg"
+   "rtkgonp4Ul4",
+   "2600万回で削除されたINMU KING｜修正版はピー音で復活",
+   "話題の速報",
+   5371,
+   43,
+   1794216849000,
+   "https://i.ytimg.com/vi/rtkgonp4Ul4/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=rtkgonp4Ul4"
   ],
   [
    "youtube",
@@ -5659,17 +5681,6 @@
    1794235445000,
    "https://i.ytimg.com/vi/7zUyrAEXXNg/hqdefault.jpg",
    "https://www.youtube.com/watch?v=7zUyrAEXXNg"
-  ],
-  [
-   "youtube",
-   "rtkgonp4Ul4",
-   "2600万回で削除されたINMU KING｜修正版はピー音で復活",
-   "話題の速報",
-   5175,
-   42,
-   1794216849000,
-   "https://i.ytimg.com/vi/rtkgonp4Ul4/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=rtkgonp4Ul4"
   ],
   [
    "niconico",
@@ -5731,7 +5742,7 @@
    "rjjyqWNZpvU",
    "【マイクラ】INMU KINGを音符ブロックで演奏してみた！【統合版】#Shorts",
    "おんぷくん",
-   4906,
+   4935,
    58,
    1793866225000,
    "https://i.ytimg.com/vi/rjjyqWNZpvU/hqdefault.jpg",
@@ -5936,6 +5947,17 @@
    "https://www.nicovideo.jp/watch/sm47024774"
   ],
   [
+   "youtube",
+   "scAxj2iAcnM",
+   "目標1万再生　INMUKING ハロウィンver削除されてたので乗っけときます#インムキング#野獣先輩#インムキングハロウィン",
+   "REARIKサブ",
+   4035,
+   74,
+   1794000547000,
+   "https://i.ytimg.com/vi/scAxj2iAcnM/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=scAxj2iAcnM"
+  ],
+  [
    "niconico",
    "ss46943892",
    "【MV】例のアレ投稿者の不祥事で応援歌1-9 ＠ピザ INMU_KING ゴMNT",
@@ -5981,25 +6003,14 @@
   ],
   [
    "youtube",
-   "b30cob7P19I",
-   "【MV】INMU KING - Mokkorea【AI】",
-   "めめろろ",
-   3846,
-   170,
-   1794384023000,
-   "https://i.ytimg.com/vi/b30cob7P19I/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=b30cob7P19I"
-  ],
-  [
-   "youtube",
-   "scAxj2iAcnM",
-   "目標1万再生　INMUKING ハロウィンver削除されてたので乗っけときます#インムキング#野獣先輩#インムキングハロウィン",
-   "REARIKサブ",
-   3653,
-   67,
-   1794000547000,
-   "https://i.ytimg.com/vi/scAxj2iAcnM/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=scAxj2iAcnM"
+   "_s9UJFQJ_cI",
+   "爆裂愛してる ✕ INMU KING#爆裂愛してる #M!LK #inmuking",
+   "yutong",
+   3816,
+   50,
+   1794315301000,
+   "https://i.ytimg.com/vi/_s9UJFQJ_cI/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=_s9UJFQJ_cI"
   ],
   [
    "youtube",
@@ -6157,17 +6168,6 @@
   ],
   [
    "youtube",
-   "_s9UJFQJ_cI",
-   "爆裂愛してる ✕ INMU KING#爆裂愛してる #M!LK #inmuking",
-   "yutong",
-   3028,
-   36,
-   1794315301000,
-   "https://i.ytimg.com/vi/_s9UJFQJ_cI/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=_s9UJFQJ_cI"
-  ],
-  [
-   "youtube",
    "PEGUPq1Hmso",
    "INMU KINGで学ぶ英単語　ascension 編 #英語学習 #受験生 #inmuking",
    "一緒に英単語",
@@ -6245,6 +6245,17 @@
   ],
   [
    "youtube",
+   "0ibyscaGtf0",
+   "今年はやった曲って冗談抜きで「INMU KING」だと思ってます💦 #shorts #vtuber #inmuking #野獣先輩 #minecraft #マイクラ #",
+   "煌牙みるく / Kouga Milk ch.",
+   2617,
+   37,
+   1794301237000,
+   "https://i.ytimg.com/vi/0ibyscaGtf0/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=0ibyscaGtf0"
+  ],
+  [
+   "youtube",
    "3TxNzhs1erQ",
    "【マイクラ】INMU KING踊ってみた！#shorts #マイクラ #アニメーション",
    "クリジュン【マイクラ】🧸💚",
@@ -6253,17 +6264,6 @@
    1794038435000,
    "https://i.ytimg.com/vi/3TxNzhs1erQ/hqdefault.jpg",
    "https://www.youtube.com/watch?v=3TxNzhs1erQ"
-  ],
-  [
-   "youtube",
-   "0ibyscaGtf0",
-   "今年はやった曲って冗談抜きで「INMU KING」だと思ってます💦 #shorts #vtuber #inmuking #野獣先輩 #minecraft #マイクラ #",
-   "煌牙みるく / Kouga Milk ch.",
-   2558,
-   37,
-   1794301237000,
-   "https://i.ytimg.com/vi/0ibyscaGtf0/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=0ibyscaGtf0"
   ],
   [
    "youtube",
@@ -6289,6 +6289,17 @@
   ],
   [
    "youtube",
+   "r1qlb0pR2OU",
+   "【810人記念&謝罪】INMU KING踊ってみた #ドラゴンボールレジェンズ #ドラゴンボール #inmuking #謝罪",
+   "くと【目指せ登録者1000人!】",
+   2450,
+   36,
+   1794297620000,
+   "https://i.ytimg.com/vi/r1qlb0pR2OU/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=r1qlb0pR2OU"
+  ],
+  [
+   "youtube",
    "RND1Y6zQLXo",
    "INMU KING 比較",
    "(・~・)テトリス",
@@ -6308,17 +6319,6 @@
    1794147032000,
    "https://i.ytimg.com/vi/L9jpAEZmSAo/hqdefault.jpg",
    "https://www.youtube.com/watch?v=L9jpAEZmSAo"
-  ],
-  [
-   "youtube",
-   "r1qlb0pR2OU",
-   "【810人記念&謝罪】INMU KING踊ってみた #ドラゴンボールレジェンズ #ドラゴンボール #inmuking #謝罪",
-   "くと【目指せ登録者1000人!】",
-   2376,
-   36,
-   1794297620000,
-   "https://i.ytimg.com/vi/r1qlb0pR2OU/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=r1qlb0pR2OU"
   ],
   [
    "youtube",
@@ -6531,6 +6531,17 @@
   ],
   [
    "youtube",
+   "lkvcQ_ftK6M",
+   "INMU KINGゲイルver.#ブロスタ ",
+   "ゆでタラch",
+   2028,
+   15,
+   1794395645000,
+   "https://i.ytimg.com/vi/lkvcQ_ftK6M/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=lkvcQ_ftK6M"
+  ],
+  [
+   "youtube",
    "37bkqOSvNLs",
    "INMUKINGランキング！#hikakin #inmuking #野獣先輩",
    "ささのはゆっくり",
@@ -6586,14 +6597,14 @@
   ],
   [
    "youtube",
-   "lkvcQ_ftK6M",
-   "INMU KINGゲイルver.#ブロスタ ",
-   "ゆでタラch",
-   1949,
-   14,
-   1794395645000,
-   "https://i.ytimg.com/vi/lkvcQ_ftK6M/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=lkvcQ_ftK6M"
+   "qyDwseHC3aE",
+   "【INMUKING】フルマイクラ再現 #マイクラ #minecraft #マインクラフト #inmuking #shorts",
+   "MuraJP",
+   1896,
+   51,
+   1794295792000,
+   "https://i.ytimg.com/vi/qyDwseHC3aE/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=qyDwseHC3aE"
   ],
   [
    "niconico",
@@ -6605,17 +6616,6 @@
    1787212409000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/46693708/46693708.94750431",
    "https://www.nicovideo.jp/watch/sm46693708"
-  ],
-  [
-   "youtube",
-   "qyDwseHC3aE",
-   "【INMUKING】フルマイクラ再現 #マイクラ #minecraft #マインクラフト #inmuking #shorts",
-   "MuraJP",
-   1834,
-   50,
-   1794295792000,
-   "https://i.ytimg.com/vi/qyDwseHC3aE/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=qyDwseHC3aE"
   ],
   [
    "youtube",
@@ -6798,8 +6798,8 @@
    "1tIhkZrusJM",
    "INMU KING & Bling Bang Bang Born",
    "YtKS",
-   1450,
-   9,
+   1457,
+   10,
    1794098269000,
    "https://i.ytimg.com/vi/1tIhkZrusJM/hqdefault.jpg",
    "https://www.youtube.com/watch?v=1tIhkZrusJM"
@@ -6917,17 +6917,6 @@
   ],
   [
    "youtube",
-   "xFc2GH3xvOg",
-   "PERFECT INMU　#inmuking　＃パーフェクトヒューマン",
-   "パナママン",
-   1372,
-   9,
-   1794307615000,
-   "https://i.ytimg.com/vi/xFc2GH3xvOg/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=xFc2GH3xvOg"
-  ],
-  [
-   "youtube",
    "iuigDOGitXI",
    "INMUKING 133bpmの曲だったら割となんでも合うらしい　#shorts #ブルアカ #野獣先輩",
    "インスタントヌードル",
@@ -7014,6 +7003,17 @@
    1794477608000,
    "https://i.ytimg.com/vi/ncz4KBDANyo/hqdefault.jpg",
    "https://www.youtube.com/watch?v=ncz4KBDANyo"
+  ],
+  [
+   "youtube",
+   "xFc2GH3xvOg",
+   "PERFECT INMU　#inmuking　＃パーフェクトヒューマン",
+   "パナママン",
+   1320,
+   9,
+   1794307615000,
+   "https://i.ytimg.com/vi/xFc2GH3xvOg/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=xFc2GH3xvOg"
   ],
   [
    "youtube",
@@ -7105,6 +7105,17 @@
   ],
   [
    "youtube",
+   "yI4wqFpPDKo",
+   "#shorts  #ポッキーの日 ポッキーでINMU KING 奏でてみたｗ",
+   "何でも屋さん　たくちー",
+   1302,
+   6,
+   1794395013000,
+   "https://i.ytimg.com/vi/yI4wqFpPDKo/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=yI4wqFpPDKo"
+  ],
+  [
+   "youtube",
    "mIXmzMpH0Xo",
    "FURIN KING / ジェンスン・フアン（INMU KING 替え歌）",
    "はやしつべ　featAI",
@@ -7182,6 +7193,28 @@
   ],
   [
    "youtube",
+   "wmLUjlgw0c8",
+   "INMU KING　🎺Brass band remix🎷",
+   "I_feel_joy",
+   1268,
+   6,
+   1794391699000,
+   "https://i.ytimg.com/vi/wmLUjlgw0c8/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=wmLUjlgw0c8"
+  ],
+  [
+   "youtube",
+   "lVT-N6bdx7I",
+   "何なんw#野獣 #inmuking #ねこ#藤井風#Mrs.GREEN APPLE",
+   "幸せを運ぶ人",
+   1267,
+   16,
+   1794388854000,
+   "https://i.ytimg.com/vi/lVT-N6bdx7I/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=lVT-N6bdx7I"
+  ],
+  [
+   "youtube",
    "hTIBNXwjD0o",
    "【UTAUカバー】INMU KING    #vocaloid #cover #utau",
    "ネク金2",
@@ -7190,17 +7223,6 @@
    1794558635000,
    "https://i.ytimg.com/vi/hTIBNXwjD0o/hqdefault.jpg",
    "https://www.youtube.com/watch?v=hTIBNXwjD0o"
-  ],
-  [
-   "youtube",
-   "lVT-N6bdx7I",
-   "何なんw#野獣 #inmuking #ねこ#藤井風#Mrs.GREEN APPLE",
-   "幸せを運ぶ人",
-   1264,
-   16,
-   1794388854000,
-   "https://i.ytimg.com/vi/lVT-N6bdx7I/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=lVT-N6bdx7I"
   ],
   [
    "youtube",
@@ -7218,7 +7240,7 @@
    "nU3U0XFJZQs",
    "アイアムアトミック？？？？？？？？？ #ヒカニチ #inmuking#アイアムアトミック#陰の実力者になりたくて！＃陰実",
    "しばパカch",
-   1251,
+   1257,
    15,
    1794378617000,
    "https://i.ytimg.com/vi/nU3U0XFJZQs/hqdefault.jpg",
@@ -7234,17 +7256,6 @@
    1794049212000,
    "https://i.ytimg.com/vi/uuOGWYglOhM/hqdefault.jpg",
    "https://www.youtube.com/watch?v=uuOGWYglOhM"
-  ],
-  [
-   "youtube",
-   "yI4wqFpPDKo",
-   "#shorts  #ポッキーの日 ポッキーでINMU KING 奏でてみたｗ",
-   "何でも屋さん　たくちー",
-   1245,
-   6,
-   1794395013000,
-   "https://i.ytimg.com/vi/yI4wqFpPDKo/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=yI4wqFpPDKo"
   ],
   [
    "youtube",
@@ -7267,6 +7278,17 @@
    1794625206000,
    "https://i.ytimg.com/vi/VWuIfRMTmoQ/hqdefault.jpg",
    "https://www.youtube.com/watch?v=VWuIfRMTmoQ"
+  ],
+  [
+   "youtube",
+   "kjDC913VUDg",
+   "INMU KING x Ado (Odo)",
+   "KyoDynmax",
+   1224,
+   3,
+   1794392065000,
+   "https://i.ytimg.com/vi/kjDC913VUDg/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=kjDC913VUDg"
   ],
   [
    "youtube",
@@ -7337,17 +7359,6 @@
   ],
   [
    "youtube",
-   "wmLUjlgw0c8",
-   "INMU KING　🎺Brass band remix🎷",
-   "I_feel_joy",
-   1190,
-   6,
-   1794391699000,
-   "https://i.ytimg.com/vi/wmLUjlgw0c8/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=wmLUjlgw0c8"
-  ],
-  [
-   "youtube",
    "DhkleVAf8Yk",
    "小町INUMU・KING　#小町いぬ #inmuking #やらないか #shorts",
    "キンチョーサッサCh.🏇",
@@ -7412,17 +7423,6 @@
    1794623532000,
    "https://i.ytimg.com/vi/_RXYGhkeo2g/hqdefault.jpg",
    "https://www.youtube.com/watch?v=_RXYGhkeo2g"
-  ],
-  [
-   "youtube",
-   "kjDC913VUDg",
-   "INMU KING x Ado (Odo)",
-   "KyoDynmax",
-   1148,
-   3,
-   1794392065000,
-   "https://i.ytimg.com/vi/kjDC913VUDg/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=kjDC913VUDg"
   ],
   [
    "youtube",
@@ -7860,7 +7860,7 @@
    "oVEhJLQOIA4",
    "INMU KINGが頭から離れない理由 #INMUKING #心理学",
    "泥沼くんの沼から出る心理学",
-   964,
+   966,
    6,
    1794391040000,
    "https://i.ytimg.com/vi/oVEhJLQOIA4/hqdefault.jpg",
@@ -8231,6 +8231,17 @@
   ],
   [
    "youtube",
+   "qPBAGmvauZE",
+   "It's King (It's Me × INMU KING)",
+   "WaSu",
+   718,
+   23,
+   1794135629000,
+   "https://i.ytimg.com/vi/qPBAGmvauZE/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=qPBAGmvauZE"
+  ],
+  [
+   "youtube",
    "cnYRjb-gb98",
    "【永久保存版】INMU KING (坪池 勝史) #ai ",
    "計画通り",
@@ -8239,17 +8250,6 @@
    1794309615000,
    "https://i.ytimg.com/vi/cnYRjb-gb98/hqdefault.jpg",
    "https://www.youtube.com/watch?v=cnYRjb-gb98"
-  ],
-  [
-   "youtube",
-   "qPBAGmvauZE",
-   "It's King (It's Me × INMU KING)",
-   "WaSu",
-   707,
-   23,
-   1794135629000,
-   "https://i.ytimg.com/vi/qPBAGmvauZE/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=qPBAGmvauZE"
   ],
   [
    "youtube",
@@ -8385,6 +8385,17 @@
    "https://www.nicovideo.jp/watch/ss46700726"
   ],
   [
+   "youtube",
+   "seQ_nBa_gxE",
+   "再投稿おめでとう#野獣先輩 #inmuking",
+   "うぉっかさん🇷🇺",
+   512,
+   5,
+   1794222776000,
+   "https://i.ytimg.com/vi/seQ_nBa_gxE/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=seQ_nBa_gxE"
+  ],
+  [
    "niconico",
    "sm47024553",
    "INMU KING（新旧比較）",
@@ -8394,17 +8405,6 @@
    1794155010000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/47024553/47024553.31198115",
    "https://www.nicovideo.jp/watch/sm47024553"
-  ],
-  [
-   "youtube",
-   "seQ_nBa_gxE",
-   "再投稿おめでとう#野獣先輩 #inmuking",
-   "うぉっかさん🇷🇺",
-   508,
-   5,
-   1794222776000,
-   "https://i.ytimg.com/vi/seQ_nBa_gxE/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=seQ_nBa_gxE"
   ],
   [
    "youtube",
@@ -8562,6 +8562,17 @@
   ],
   [
    "youtube",
+   "sXKal7i8yWY",
+   "新旧INMU KINGを比較してみた #ai",
+   "京都府民",
+   406,
+   14,
+   1794153467000,
+   "https://i.ytimg.com/vi/sXKal7i8yWY/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=sXKal7i8yWY"
+  ],
+  [
+   "youtube",
    "xh3ecVgUDUA",
    "【INMU KING】野獣先輩とアイスティー【R&B Lofi】",
    "ちんぼうチャンネル",
@@ -8570,17 +8581,6 @@
    1794429956000,
    "https://i.ytimg.com/vi/xh3ecVgUDUA/hqdefault.jpg",
    "https://www.youtube.com/watch?v=xh3ecVgUDUA"
-  ],
-  [
-   "youtube",
-   "sXKal7i8yWY",
-   "新旧INMU KINGを比較してみた #ai",
-   "京都府民",
-   399,
-   13,
-   1794153467000,
-   "https://i.ytimg.com/vi/sXKal7i8yWY/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=sXKal7i8yWY"
   ],
   [
    "niconico",
@@ -8794,6 +8794,17 @@
    "https://www.youtube.com/watch?v=kkVq6-Yef1k"
   ],
   [
+   "youtube",
+   "2KHMvzrgH1M",
+   "【INMU KING】おさーんがギター弾き語りカバー「インムキング歌ってみた」",
+   "Takumaru guitar",
+   310,
+   2,
+   1794120919000,
+   "https://i.ytimg.com/vi/2KHMvzrgH1M/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=2KHMvzrgH1M"
+  ],
+  [
    "niconico",
    "sm47004381",
    "劇場版　INMUKING　予告PV　～問題児二人、ただし、最強。",
@@ -8836,17 +8847,6 @@
    1794334141000,
    "https://i.ytimg.com/vi/vvxysutHLgQ/hqdefault.jpg",
    "https://www.youtube.com/watch?v=vvxysutHLgQ"
-  ],
-  [
-   "youtube",
-   "2KHMvzrgH1M",
-   "【INMU KING】おさーんがギター弾き語りカバー「インムキング歌ってみた」",
-   "Takumaru guitar",
-   298,
-   2,
-   1794120919000,
-   "https://i.ytimg.com/vi/2KHMvzrgH1M/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=2KHMvzrgH1M"
   ],
   [
    "youtube",
@@ -8993,6 +8993,17 @@
    "https://www.nicovideo.jp/watch/ss47006674"
   ],
   [
+   "youtube",
+   "kE7VbO04Ecw",
+   "【神回】【野獣先輩新曲予告】トレーニーが野獣になる最高の瞬間 #ai #aivideo #野獣先輩 #野獣 #筋トレ #inmuking #野獣先輩新曲 #yaju #shorts #short",
+   "YAJU-THE-SONG",
+   238,
+   6,
+   1794350443000,
+   "https://i.ytimg.com/vi/kE7VbO04Ecw/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=kE7VbO04Ecw"
+  ],
+  [
    "niconico",
    "ss46945023",
    "ホモと見るマレーシアの淫夢厨の車で流れるINMU_KING",
@@ -9002,17 +9013,6 @@
    1792421457000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/46945023/46945023.14311323",
    "https://www.nicovideo.jp/watch/ss46945023"
-  ],
-  [
-   "youtube",
-   "kE7VbO04Ecw",
-   "【神回】【野獣先輩新曲予告】トレーニーが野獣になる最高の瞬間 #ai #aivideo #野獣先輩 #野獣 #筋トレ #inmuking #野獣先輩新曲 #yaju #shorts #short",
-   "YAJU-THE-SONG",
-   231,
-   5,
-   1794350443000,
-   "https://i.ytimg.com/vi/kE7VbO04Ecw/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=kE7VbO04Ecw"
   ],
   [
    "youtube",
@@ -9484,7 +9484,7 @@
    "e55yrybWojE",
    "ｽｷﾞｽｷﾞｽｷﾞｽｷﾞ #114514 #inmuking #野獣先輩 #名言 #野球 #サッカー日本代表 #いいね #ブロスタ #shorts",
    "ぐみ",
-   156,
+   155,
    0,
    1794321923000,
    "https://i.ytimg.com/vi/e55yrybWojE/hqdefault.jpg",
@@ -9525,6 +9525,17 @@
   ],
   [
    "youtube",
+   "skI6qXRakxk",
+   "MINECRAFT INMU KING",
+   "すぱーし",
+   146,
+   4,
+   1794227063000,
+   "https://i.ytimg.com/vi/skI6qXRakxk/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=skI6qXRakxk"
+  ],
+  [
+   "youtube",
    "6CR-lN-5ccI",
    "さぁ…今のこのアイスティーを飲み干そう… #114514 #inmuking #inmuking #野獣先輩 #ブロスタ #ブロスタ #いいね #サッカー日本代表 #名言 #野球",
    "ぐみ",
@@ -9544,17 +9555,6 @@
    1794006605000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/47016448/47016448.87660118",
    "https://www.nicovideo.jp/watch/sm47016448"
-  ],
-  [
-   "youtube",
-   "skI6qXRakxk",
-   "MINECRAFT INMU KING",
-   "すぱーし",
-   141,
-   4,
-   1794227063000,
-   "https://i.ytimg.com/vi/skI6qXRakxk/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=skI6qXRakxk"
   ],
   [
    "niconico",
@@ -9646,6 +9646,17 @@
   ],
   [
    "youtube",
+   "pgEn0AFyigM",
+   "【INMU KING】新旧バージョン比較！",
+   "じゅえるくん",
+   123,
+   1,
+   1794146859000,
+   "https://i.ytimg.com/vi/pgEn0AFyigM/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=pgEn0AFyigM"
+  ],
+  [
+   "youtube",
    "-k6X2CGewPY",
    "inmu kingを霊夢に踊らせたよ。",
    "へざいあ",
@@ -9688,17 +9699,6 @@
    1793200057000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/46977510/46977510.14042875",
    "https://www.nicovideo.jp/watch/sm46977510"
-  ],
-  [
-   "youtube",
-   "pgEn0AFyigM",
-   "【INMU KING】新旧バージョン比較！",
-   "じゅえるくん",
-   119,
-   1,
-   1794146859000,
-   "https://i.ytimg.com/vi/pgEn0AFyigM/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=pgEn0AFyigM"
   ],
   [
    "youtube",
@@ -10572,6 +10572,17 @@
    "https://www.youtube.com/watch?v=k_6pHxJIoSs"
   ],
   [
+   "youtube",
+   "f9RLBjrkfog",
+   "INMU KING おせちver 踊ってみた#shorts",
+   "toby",
+   60,
+   1,
+   1794471718000,
+   "https://i.ytimg.com/vi/f9RLBjrkfog/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=f9RLBjrkfog"
+  ],
+  [
    "niconico",
    "sm46979208",
    "【うごメモ変換】INMU KING",
@@ -10736,17 +10747,6 @@
    1794522726000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/47039127/47039127.90155088",
    "https://www.nicovideo.jp/watch/sm47039127"
-  ],
-  [
-   "youtube",
-   "f9RLBjrkfog",
-   "INMU KING おせちver 踊ってみた#shorts",
-   "toby",
-   53,
-   1,
-   1794471718000,
-   "https://i.ytimg.com/vi/f9RLBjrkfog/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=f9RLBjrkfog"
   ],
   [
    "youtube",
@@ -11237,6 +11237,17 @@
   ],
   [
    "youtube",
+   "o84gtlyfAbk",
+   "[創作譜面]INMU KING",
+   "アヱの創作譜面置き場",
+   38,
+   0,
+   1794400722000,
+   "https://i.ytimg.com/vi/o84gtlyfAbk/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=o84gtlyfAbk"
+  ],
+  [
+   "youtube",
    "GL-QAJtY0hw",
    "INMU_KING　立体視　【検閲対策】",
    "旭馬",
@@ -11337,6 +11348,17 @@
   ],
   [
    "youtube",
+   "sp7J3pEZJdc",
+   "お前腹パンすんでスギ #inmuking",
+   "もぷ",
+   35,
+   1,
+   1794046892000,
+   "https://i.ytimg.com/vi/sp7J3pEZJdc/hqdefault.jpg",
+   "https://www.youtube.com/watch?v=sp7J3pEZJdc"
+  ],
+  [
+   "youtube",
    "2RQwpEiI_NI",
    "INMU KING(修正前やじゅまん本家）",
    "いくミク",
@@ -11367,17 +11389,6 @@
    1793798116000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/47007788/47007788.92890194",
    "https://www.nicovideo.jp/watch/sm47007788"
-  ],
-  [
-   "youtube",
-   "sp7J3pEZJdc",
-   "お前腹パンすんでスギ #inmuking",
-   "もぷ",
-   34,
-   1,
-   1794046892000,
-   "https://i.ytimg.com/vi/sp7J3pEZJdc/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=sp7J3pEZJdc"
   ],
   [
    "youtube",
@@ -11777,17 +11788,6 @@
    1793976886000,
    "https://nicovideo.cdn.nimg.jp/thumbnails/47015849/47015849.9067965",
    "https://www.nicovideo.jp/watch/sm47015849"
-  ],
-  [
-   "youtube",
-   "o84gtlyfAbk",
-   "[創作譜面]INMU KING",
-   "アヱの創作譜面置き場",
-   24,
-   0,
-   1794400722000,
-   "https://i.ytimg.com/vi/o84gtlyfAbk/hqdefault.jpg",
-   "https://www.youtube.com/watch?v=o84gtlyfAbk"
   ],
   [
    "youtube",
