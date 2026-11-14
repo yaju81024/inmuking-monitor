@@ -731,8 +731,9 @@ Promise.all([
       trySample(card, img.src);
     });
   }
-  var list=document.getElementById('list');
-  if(list){ new MutationObserver(scan).observe(list,{childList:true,subtree:true}); scan(); }
+  var root=document.getElementById('app')||document.body;
+  new MutationObserver(scan).observe(root,{childList:true,subtree:true});
+  scan();
 })();
 </script>
 </body>
