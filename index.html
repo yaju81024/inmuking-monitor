@@ -6,101 +6,206 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>INMU KING 動画モニター（非公式ファンツール）</title>
 <style>
+  /* リデザイン: 温かみのあるチャコールと生成りを基調に、罫線と余白で
+     構成する編集デザイン。枠と影で囲うカード表現はやめ、機能・配線は
+     一切変えず見た目だけを整えている。 */
   :root{
-    --bg:#121212; --panel:#1d1d1f; --panel2:#26262a; --line:#3a3a40;
-    --text:#f2f2f2; --sub:#b9b9c0; --red:#e60012; --red2:#ff2a3c;
-    --chip:#2c2c31;
+    --bg:#16130f;
+    --bg-raise:#1d1915;
+    --ink:#ece5d5;
+    --body:#cdc4b2;
+    --sub:#a29885;
+    --line:#37312a;
+    --line-strong:#5a5145;
+    --accent:#bc3b34;
+    --accent-deep:#9c2b26;
+    --accent-soft:#e5a49d;
+    --link:#d3ba8a;
+    --paper:#ece5d5;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;line-height:1.6}
-  a{color:#7db8ff}
-  .wrap{max-width:1180px;margin:0 auto;padding:20px 16px 64px}
-  header.site{padding:8px 0 4px}
-  header.site h1{font-size:26px;margin:0 0 4px}
-  header.site .lead{color:var(--sub);font-size:14px;margin:0}
-  .notice{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--sub);margin:14px 0 22px}
-  .notice strong{color:var(--text)}
+  body{
+    background:var(--bg);color:var(--body);
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+    line-height:1.75;font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:#fff}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline;text-underline-offset:3px}
+  button{font-family:inherit}
+  :focus-visible{outline:2px solid var(--link);outline-offset:2px}
+  .wrap{max-width:1120px;margin:0 auto;padding:44px 28px 80px}
+
+  /* ---------- ヘッダー ---------- */
+  header.site{padding:6px 0 26px;border-bottom:1px solid var(--ink)}
+  header.site h1{
+    font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho",serif;
+    font-size:clamp(30px,4.6vw,44px);font-weight:600;letter-spacing:.04em;
+    color:var(--ink);margin:0 0 10px;line-height:1.3;
+  }
+  header.site .lead{color:var(--sub);font-size:14px;margin:0;max-width:46em}
+  .notice{
+    background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;
+    padding:16px 0;font-size:12.5px;color:var(--sub);margin:0 0 8px;line-height:1.9;
+  }
+  .notice strong{color:var(--ink);font-weight:600}
 
   /* ---------- 特設 ---------- */
-  .featured{border:2px solid var(--red);border-radius:14px;overflow:hidden;background:var(--panel);margin-bottom:28px}
-  .featured-banner{background:var(--red);color:#fff;font-weight:700;font-size:14px;padding:8px 14px;letter-spacing:.02em}
-  .featured-body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;padding:18px;align-items:start;min-width:0}
+  .featured{background:transparent;border:0;border-radius:0;overflow:visible;margin-bottom:16px}
+  .featured-banner{
+    background:transparent;color:var(--accent-soft);font-weight:700;font-size:12.5px;
+    padding:26px 0 12px;letter-spacing:.12em;border-bottom:2px solid var(--accent);
+  }
+  .featured-body{
+    display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+    gap:40px;padding:30px 0 34px;align-items:start;min-width:0;
+    border-bottom:1px solid var(--line);
+  }
   .featured-body>*{min-width:0}
-  .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden;align-self:start}
+  .player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:4px;overflow:hidden;align-self:start}
   .player img{width:100%;height:100%;object-fit:cover;display:block}
   .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .playbtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:48px;border:0;border-radius:12px;background:rgba(230,0,18,.92);cursor:pointer;display:flex;align-items:center;justify-content:center}
-  .playbtn::before{content:"";border-style:solid;border-width:10px 0 10px 17px;border-color:transparent transparent transparent #fff;margin-left:3px}
-  .playbtn:hover{background:var(--red2)}
-  .featured-info h2{font-size:21px;margin:2px 0 8px;line-height:1.45;overflow-wrap:anywhere}
-  .featured-info .meta{font-size:13px;color:var(--sub);margin:0 0 12px}
-  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
-  .stat{background:var(--panel2);border-radius:10px;padding:8px 14px;min-width:96px}
-  .stat .num{font-size:19px;font-weight:700}
-  .stat .lbl{font-size:11px;color:var(--sub)}
-  .featured-info .desc{font-size:13px;color:var(--sub);white-space:pre-wrap;overflow-wrap:anywhere;background:var(--panel2);border-radius:10px;padding:12px 14px;margin:0 0 12px}
-  .btnrow{display:flex;gap:10px;flex-wrap:wrap}
-  .btn{display:inline-block;padding:9px 16px;border-radius:999px;font-size:14px;font-weight:700;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--panel2)}
-  .btn.primary{background:var(--red);border-color:var(--red);color:#fff}
-  .chartbox{border-top:1px solid var(--line);padding:14px 18px 18px}
-  .chartbox h3{margin:0 0 4px;font-size:15px}
-  .chartbox .growth{font-size:13px;color:var(--sub);margin:0 0 8px}
-  .chartbox .growth b{color:#ffb3ba}
+  .playbtn{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:62px;height:62px;border:0;border-radius:50%;
+    background:rgba(156,43,38,.94);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .18s ease;
+  }
+  .playbtn::before{content:"";border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent #fff;margin-left:3px}
+  .playbtn:hover{background:var(--accent)}
+  .featured-info h2{
+    font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho",serif;
+    font-size:24px;font-weight:600;margin:0 0 10px;line-height:1.55;overflow-wrap:anywhere;color:var(--ink);
+  }
+  .featured-info .meta{font-size:12.5px;color:var(--sub);margin:0 0 4px;line-height:1.9}
+  .stats{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    margin:18px 0 20px;
+  }
+  .stat{background:transparent;border-radius:0;padding:12px 16px 12px 0;min-width:0}
+  .stat + .stat{border-left:1px solid var(--line);padding-left:16px}
+  .stat .num{font-size:23px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+  .stat .lbl{font-size:11px;color:var(--sub);letter-spacing:.08em}
+  .featured-info .desc{
+    font-size:13px;color:var(--body);white-space:pre-wrap;overflow-wrap:anywhere;
+    background:transparent;border-radius:0;border-left:1px solid var(--line-strong);
+    padding:2px 0 2px 16px;margin:0 0 22px;line-height:1.9;
+  }
+  .btnrow{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
+  .btn{
+    display:inline-block;padding:7px 2px;border-radius:0;font-size:13.5px;font-weight:600;
+    text-decoration:none;border:0;border-bottom:1px solid var(--line-strong);
+    color:var(--ink);background:transparent;
+  }
+  .btn:hover{text-decoration:none;border-bottom-color:var(--ink)}
+  .btn.primary{
+    background:var(--accent-deep);border:1px solid var(--accent-deep);color:#fff;
+    padding:10px 20px;border-radius:3px;
+  }
+  .btn.primary:hover{background:var(--accent);border-color:var(--accent)}
+
+  /* ---------- グラフ ---------- */
+  .chartbox{border-top:0;padding:30px 0 8px}
+  .chartbox h3{
+    font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho",serif;
+    margin:0 0 6px;font-size:19px;font-weight:600;color:var(--ink);letter-spacing:.03em;
+  }
+  .chartbox .growth{font-size:13px;color:var(--sub);margin:0 0 10px}
+  .chartbox .growth b{color:var(--accent-soft);font-weight:700}
   #chart{width:100%;display:block;touch-action:pan-y;cursor:crosshair}
   .chartwrap{position:relative}
-  #charttip{position:absolute;display:none;pointer-events:none;background:rgba(12,12,16,.95);border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-size:12.5px;line-height:1.55;color:var(--text);z-index:5;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.45)}
-  #charttip .tt-time{color:var(--sub);font-size:12px}
+  #charttip{
+    position:absolute;display:none;pointer-events:none;
+    background:var(--paper);border:0;border-radius:6px;
+    padding:9px 12px;font-size:12.5px;line-height:1.55;color:#262219;z-index:5;white-space:nowrap;
+  }
+  #charttip .tt-time{color:#7c7462;font-size:12px}
   #charttip .tt-views{font-size:16px;font-weight:800}
-  .charthint{font-size:12px;color:var(--sub);margin:8px 0 0}
-  .modebar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:0 0 8px}
-  .modebar .lbl{font-size:12px;color:var(--sub)}
+  .charthint{font-size:12px;color:var(--sub);margin:10px 0 0}
+  .modebar{display:flex;gap:2px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
+  .modebar .lbl{font-size:12px;color:var(--sub);margin-right:6px;letter-spacing:.06em}
 
   /* ---------- オリコン枠 ---------- */
-  .oricon{border-top:1px solid var(--line);padding:14px 18px 6px}
-  .oricon h3{margin:0 0 8px;font-size:15px}
-  .oricon .ostats{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 10px}
-  .oricon .verdict{font-size:13.5px;margin:0 0 6px}
-  .oricon .verdict b{color:#ffb3ba}
-  .oricon .onote{font-size:12px;color:var(--sub);margin:0 0 8px}
-  @media (max-width:860px){
-    .featured-body{grid-template-columns:minmax(0,1fr)}
-    .chartbox{padding:12px}
-    .oricon{padding:12px 12px 4px}
+  .oricon{border-top:1px solid var(--line);padding:30px 0 4px}
+  .oricon h3{
+    font-family:"Hiragino Mincho ProN","Hiragino Mincho Pro","Yu Mincho","YuMincho",serif;
+    margin:0 0 14px;font-size:19px;font-weight:600;color:var(--ink);letter-spacing:.03em;
   }
+  .oricon .ostats{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    margin:0 0 16px;
+  }
+  .oricon .verdict{font-size:14.5px;margin:0 0 8px;line-height:1.95;color:var(--body)}
+  .oricon .verdict b{color:var(--accent-soft)}
+  .oricon .onote{font-size:12px;color:var(--sub);margin:0 0 10px;line-height:1.9}
 
   /* ---------- 状況・ツールバー ---------- */
-  .statusbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 14px;font-size:14px}
-  .chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
-  .chip.new{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
-  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 6px}
-  .toolbar .group{display:flex;gap:6px;flex-wrap:wrap}
-  .tbtn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;cursor:pointer}
-  .tbtn.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
-  .toolbar input[type="search"]{background:var(--panel2);border:1px solid var(--line);border-radius:999px;color:var(--text);padding:7px 14px;font-size:13px;min-width:200px;flex:1}
-  .count{font-size:13px;color:var(--sub);margin:6px 0 14px}
+  .statusbar{
+    display:flex;gap:26px;flex-wrap:wrap;align-items:center;
+    margin:26px 0 0;padding:13px 0;font-size:13px;color:var(--body);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .chip{background:transparent;border:0;border-radius:0;padding:0}
+  .chip.new{background:transparent;border:0;color:var(--accent-soft);font-weight:700}
+  .toolbar{
+    display:flex;gap:10px 26px;flex-wrap:wrap;align-items:center;
+    margin:0;padding:16px 0 4px;
+  }
+  .toolbar .group{display:flex;gap:2px;flex-wrap:wrap}
+  .tbtn{
+    background:transparent;color:var(--sub);border:0;border-bottom:2px solid transparent;
+    border-radius:0;padding:6px 10px;font-size:13px;cursor:pointer;letter-spacing:.02em;
+  }
+  .tbtn:hover{color:var(--ink)}
+  .tbtn.on{background:transparent;border-bottom-color:var(--accent);color:var(--ink);font-weight:700}
+  .toolbar input[type="search"]{
+    background:var(--bg-raise);border:1px solid var(--line);border-radius:3px;
+    color:var(--ink);padding:8px 12px;font-size:13px;min-width:200px;flex:1;
+  }
+  .toolbar input[type="search"]::placeholder{color:var(--sub)}
+  .count{font-size:12.5px;color:var(--sub);margin:8px 0 22px}
 
-  /* ---------- カード ---------- */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-  .card .thumb{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+  /* ---------- 一覧 ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:38px 26px}
+  .card{background:transparent;border:0;border-radius:0;overflow:visible;display:flex;flex-direction:column}
+  .card .thumb{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:4px;overflow:hidden}
   .card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
   .card .thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .card .playbtn{width:52px;height:38px;border-radius:9px}
-  .badge-new{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;letter-spacing:.06em;z-index:2}
-  .badge-plat{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.72);color:#fff;font-size:11px;padding:2px 8px;border-radius:6px;z-index:2}
-  .badge-del{position:absolute;top:8px;left:8px;background:#5a0d12;color:#ffb3ba;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;z-index:2;border:1px solid var(--red)}
-  .badge-gone{position:absolute;top:8px;left:8px;background:#3a3a40;color:#e8e8ec;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;z-index:2;border:1px solid #6a6a72}
-  .tag-man{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:6px;font-size:11px;padding:0 6px;margin-left:6px;color:var(--sub);vertical-align:1px}
-  .card .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
-  .card .title{font-size:14px;font-weight:700;line-height:1.5;overflow-wrap:anywhere}
-  .card .title a{color:var(--text);text-decoration:none}
-  .card .title a:hover{text-decoration:underline}
-  .card .meta{font-size:12px;color:var(--sub);overflow-wrap:anywhere}
-  .card .nums{font-size:12px;color:var(--sub);margin-top:auto}
-  .card .nums b{color:var(--text)}
-  footer.site{margin-top:44px;font-size:12px;color:var(--sub);border-top:1px solid var(--line);padding-top:14px}
-  .err{background:#3a1416;border:1px solid var(--red);border-radius:10px;padding:14px;font-size:14px}
+  .card .playbtn{width:48px;height:48px}
+  .card .playbtn::before{border-width:7px 0 7px 12px}
+  .badge-new{position:absolute;top:8px;left:8px;background:var(--accent-deep);color:#fff;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:3px;letter-spacing:.08em;z-index:2}
+  .badge-plat{position:absolute;top:8px;right:8px;background:rgba(18,15,12,.82);color:#f0e9da;font-size:10.5px;padding:2px 8px;border-radius:3px;z-index:2;letter-spacing:.04em}
+  .badge-del{position:absolute;top:8px;left:8px;background:var(--paper);color:var(--accent-deep);font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:3px;z-index:2;border:0}
+  .badge-gone{position:absolute;top:8px;left:8px;background:#3b352c;color:#e8e1d0;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:3px;z-index:2;border:0}
+  .tag-man{
+    display:inline-block;background:transparent;border:1px solid var(--line-strong);
+    border-radius:3px;font-size:10.5px;padding:0 6px;margin-left:6px;color:var(--sub);vertical-align:1px;
+  }
+  .card .body{padding:12px 2px 0;display:flex;flex-direction:column;gap:5px;flex:1}
+  .card .title{font-size:14.5px;font-weight:600;line-height:1.6;overflow-wrap:anywhere}
+  .card .title a{color:var(--ink);text-decoration:none}
+  .card .title a:hover{text-decoration:underline;text-underline-offset:3px}
+  .card .meta{font-size:11.5px;color:var(--sub);overflow-wrap:anywhere;line-height:1.7}
+  .card .nums{font-size:12px;color:var(--sub);margin-top:auto;padding-top:9px;border-top:1px solid var(--line)}
+  .card .nums b{color:var(--ink);font-variant-numeric:tabular-nums}
+
+  footer.site{margin-top:64px;font-size:12px;color:var(--sub);border-top:1px solid var(--ink);padding-top:18px;line-height:1.95}
+  .err{background:#2b1712;border:1px solid #7c3a2d;border-radius:4px;padding:14px;font-size:14px;color:#f0c8bd}
+
+  @media (max-width:860px){
+    .wrap{padding:30px 18px 64px}
+    .featured-body{grid-template-columns:minmax(0,1fr);gap:24px;padding:24px 0 28px}
+    .chartbox{padding:24px 0 4px}
+    .oricon{padding:24px 0 2px}
+    .oricon .ostats{grid-template-columns:repeat(2,1fr)}
+    .oricon .ostats .stat:nth-child(3){border-left:0;padding-left:0}
+    .grid{gap:30px 18px}
+  }
 </style>
 </head>
 <body>
