@@ -638,7 +638,7 @@ function render(){
         </span>
       </div>
       <p class="growth" id="growthline">記録開始（${HISTORY.length ? esc(fmtDate(HISTORY[0][0])) : "—"}）から <b>+${fmt(growth)}回</b> ／ 記録 ${fmt(HISTORY.length)}点</p>
-      <p class="growth" id="chartnote" style="display:none">実線＝今週の累計（実測）。白の破線＝直近6時間ペースのまま伸びた場合の到達見込み、青の点線＝150万回に必要なペース。横線は150万・300万・550万回です。</p>
+      <p class="growth" id="chartnote" style="display:none">実線＝今週の累計（実測）。グレーの破線＝直近6時間ペースのまま伸びた場合の到達見込み、赤の点線＝150万回に必要なペース。横線は150万・300万・550万回です。</p>
       <div class="chartwrap"><svg id="chart" role="img" aria-label="特設動画の再生数推移グラフ"></svg><div id="charttip"></div></div>
       <p class="charthint">グラフをタップ／なぞると、その時点の再生数・高評価・コメントが表示されます。</p>
     </div>
