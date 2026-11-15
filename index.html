@@ -133,19 +133,15 @@
   .chartbox .growth{font-size:12px;color:var(--sub);margin:0 0 12px}
   .chartbox .growth b{color:var(--accent-deep);font-weight:700}
   .chartwrap{
-    position:relative;background:var(--plate);
-    border:1px solid rgba(33,30,26,.85);border-radius:8px;
-    box-shadow:0 1px 2px rgba(33,30,26,.05), 0 16px 36px -20px rgba(33,30,26,.35);
+    position:relative;background:var(--paper);
+    border:1px solid var(--line);border-radius:6px;
+    box-shadow:0 1px 2px rgba(33,30,26,.04), 0 18px 38px -24px rgba(33,30,26,.30);
     padding:22px 18px 18px;
   }
-  /* グラフ内部の色も面に合わせて整える（線のネオン感と格子の強さを落とす） */
-  #chart line[stroke="#3a3a40"]{stroke:#3b362d}
-  #chart polyline[stroke="#ff2a3c"]{stroke:#e23a30}
-  #chartmark circle[fill="#ff2a3c"]{fill:#e23a30}
   #chart{width:100%;display:block;touch-action:pan-y;cursor:crosshair}
   #charttip{
     position:absolute;display:none;pointer-events:none;
-    background:var(--paper);border:1px solid var(--line);border-radius:4px;
+    background:var(--paper);border:1px solid var(--line);border-radius:6px;box-shadow:0 12px 30px -12px rgba(33,30,26,.35);
     padding:9px 12px;font-size:12.5px;line-height:1.55;color:var(--ink);z-index:5;white-space:nowrap;
   }
   #charttip .tt-time{color:var(--sub);font-size:12px}
@@ -362,21 +358,25 @@ function drawChart(){
   let s = "";
   for (let i = 0; i <= 4; i++){
     const v = min + (max - min) * i / 4, y = Y(v);
-    s += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#3a3a40" stroke-width="1"/>`
-       + `<text x="${padL - 6}" y="${y + 4}" fill="#b9b9c0" font-size="${fsize}" text-anchor="end">${esc(fmtShort(v))}</text>`;
+    s += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#eae3cf" stroke-width="1"/>`
+       + `<text x="${padL - 6}" y="${y + 4}" fill="#6b6558" font-size="${fsize}" text-anchor="end">${esc(fmtShort(v))}</text>`;
   }
+  s += `<line x1="${padL}" y1="${padT + ih}" x2="${W - padR}" y2="${padT + ih}" stroke="#ddd3ba" stroke-width="1"/>`;
   const labelIdx = mobile ? [0, Math.floor(HISTORY.length / 2), HISTORY.length - 1]
                           : [0, Math.floor(HISTORY.length * 0.33), Math.floor(HISTORY.length * 0.66), HISTORY.length - 1];
   for (const i of [...new Set(labelIdx)]){
     const t = new Date(HISTORY[i][0]);
     const lbl = (t.getMonth() + 1) + "/" + t.getDate();
-    s += `<text x="${X(HISTORY[i][0])}" y="${H - 8}" fill="#b9b9c0" font-size="${fsize}" text-anchor="middle">${lbl}</text>`;
+    s += `<text x="${X(HISTORY[i][0])}" y="${H - 8}" fill="#6b6558" font-size="${fsize}" text-anchor="middle">${lbl}</text>`;
   }
   const grid = resampleGrid(HISTORY, 15 * 60000);
   const pts = grid.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
-  s += `<polyline points="${pts}" fill="none" stroke="#ff2a3c" stroke-width="${mobile ? 3.5 : 2.5}" stroke-linejoin="round"/>`;
+  const areaN = "M" + X(grid[0][0]).toFixed(1) + "," + (padT + ih) + " L" + grid.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" L") + " L" + X(grid[grid.length - 1][0]).toFixed(1) + "," + (padT + ih) + " Z";
+  s += `<path d="${areaN}" fill="rgba(179,39,30,.06)"/>`;
+  s += `<polyline points="${pts}" fill="none" stroke="#b3271e" stroke-width="${mobile ? 3 : 2.25}" stroke-linejoin="round" stroke-linecap="round"/>`;
   const last = HISTORY[HISTORY.length - 1];
-  s += `<text x="${Math.min(X(last[0]), W - padR)}" y="${Math.max(Y(last[1]) - 10, fsize + 2)}" fill="#fff" font-size="${mobile ? 17 : 13}" font-weight="700" text-anchor="end">${fmt(last[1])}回</text>`;
+  s += `<circle cx="${X(last[0])}" cy="${Y(last[1])}" r="3.5" fill="#b3271e" stroke="#fffdf8" stroke-width="1.5"/>`;
+  s += `<text x="${Math.min(X(last[0]), W - padR)}" y="${Math.max(Y(last[1]) - 12, fsize + 2)}" fill="#211e1a" font-size="${mobile ? 17 : 13}" font-weight="700" text-anchor="end">${fmt(last[1])}回</text>`;
   s += `<g id="chartmark"></g>`;
   CHART = {W, H, padT, padB, mobile, X, Y, series: HISTORY, mode: "normal"};
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
@@ -405,8 +405,8 @@ function wireChart(){
     const cx = CHART.X(p[0]), cy = CHART.Y(p[1]);
     const mark = svg.querySelector("#chartmark");
     if (mark) mark.innerHTML =
-      `<line x1="${cx}" y1="${CHART.padT}" x2="${cx}" y2="${CHART.H - CHART.padB}" stroke="#ffffff" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>` +
-      `<circle cx="${cx}" cy="${cy}" r="${CHART.mobile ? 6.5 : 5}" fill="#ff2a3c" stroke="#ffffff" stroke-width="2"/>`;
+      `<line x1="${cx}" y1="${CHART.padT}" x2="${cx}" y2="${CHART.H - CHART.padB}" stroke="#c6bda6" stroke-width="1" opacity="0.9"/>` +
+      `<circle cx="${cx}" cy="${cy}" r="${CHART.mobile ? 6.5 : 5}" fill="#b3271e" stroke="#fffdf8" stroke-width="2"/>`;
     tip.innerHTML = `<div class="tt-time">${esc(fmtDate(p[0]))}</div>` +
       (CHART.mode === "oricon"
         ? `<div class="tt-views">${fmt(p[1])} 回（週間累計）</div>` + `<div>総再生数 ${fmt(p[4])}</div>`
@@ -516,31 +516,35 @@ function drawOriconChart(){
   let s = "";
   for (let i = 0; i <= 4; i++){
     const v = ymax * i / 4, y = Y(v);
-    s += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#3a3a40" stroke-width="1"/>`
-       + `<text x="${padL - 6}" y="${y + 4}" fill="#b9b9c0" font-size="${fsize}" text-anchor="end">${esc(fmtShort(v))}</text>`;
+    s += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#eae3cf" stroke-width="1"/>`
+       + `<text x="${padL - 6}" y="${y + 4}" fill="#6b6558" font-size="${fsize}" text-anchor="end">${esc(fmtShort(v))}</text>`;
   }
+  s += `<line x1="${padL}" y1="${padT + ih}" x2="${W - padR}" y2="${padT + ih}" stroke="#ddd3ba" stroke-width="1"/>`;
   for (const lv of [1500000, 3000000, 5500000]){
     if (lv > ymax) continue;
     const y = Y(lv);
-    s += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#ffb3ba" stroke-width="1" stroke-dasharray="5 4" opacity="0.75"/>`
-       + `<text x="${W - padR}" y="${y - 5}" fill="#ffb3ba" font-size="${fsize}" text-anchor="end">${lv / 10000}万</text>`;
+    s += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="#c9b995" stroke-width="1" stroke-dasharray="4 4" opacity="0.9"/>`
+       + `<text x="${W - padR}" y="${y - 5}" fill="#8a8172" font-size="${fsize}" text-anchor="end">${lv / 10000}万</text>`;
   }
   for (const tt of [t0, t0 + (t1 - t0) / 2, t1]){
     const d = new Date(tt + 9 * 3600000);
     const lbl = (d.getUTCMonth() + 1) + "/" + d.getUTCDate();
     const anch = tt === t1 ? "end" : "middle";
-    s += `<text x="${X(tt)}" y="${H - 8}" fill="#b9b9c0" font-size="${fsize}" text-anchor="${anch}">${lbl}</text>`;
+    s += `<text x="${X(tt)}" y="${H - 8}" fill="#6b6558" font-size="${fsize}" text-anchor="${anch}">${lbl}</text>`;
   }
   const gridS = resampleGrid(S, 15 * 60000);
   const pts = gridS.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
-  s += `<polyline points="${pts}" fill="none" stroke="#ff2a3c" stroke-width="${mobile ? 3.5 : 2.5}" stroke-linejoin="round"/>`;
+  const areaO = "M" + X(gridS[0][0]).toFixed(1) + "," + (padT + ih) + " L" + gridS.map(p => X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" L") + " L" + X(gridS[gridS.length - 1][0]).toFixed(1) + "," + (padT + ih) + " Z";
+  s += `<path d="${areaO}" fill="rgba(179,39,30,.06)"/>`;
+  s += `<polyline points="${pts}" fill="none" stroke="#b3271e" stroke-width="${mobile ? 3 : 2.25}" stroke-linejoin="round" stroke-linecap="round"/>`;
   const last = S[S.length - 1];
   const projY = Math.max(padT, Y(o.proj));
-  s += `<line x1="${X(last[0])}" y1="${Y(last[1])}" x2="${X(t1)}" y2="${projY}" stroke="#ffffff" stroke-width="1.6" stroke-dasharray="6 4" opacity="0.85"/>`;
+  s += `<line x1="${X(last[0])}" y1="${Y(last[1])}" x2="${X(t1)}" y2="${projY}" stroke="#8a8172" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.8"/>`;
   if (o.remain150 > 0){
-    s += `<line x1="${X(last[0])}" y1="${Y(last[1])}" x2="${X(t1)}" y2="${Y(1500000)}" stroke="#7db8ff" stroke-width="1.6" stroke-dasharray="2 3" opacity="0.9"/>`;
+    s += `<line x1="${X(last[0])}" y1="${Y(last[1])}" x2="${X(t1)}" y2="${Y(1500000)}" stroke="#b3271e" stroke-width="1.5" stroke-dasharray="2 3" opacity="0.6"/>`;
   }
-  s += `<text x="${Math.min(X(last[0]), W - padR)}" y="${Math.max(Y(last[1]) - 10, fsize + 2)}" fill="#fff" font-size="${mobile ? 17 : 13}" font-weight="700" text-anchor="end">${fmt(last[1])}回（累計）</text>`;
+  s += `<circle cx="${X(last[0])}" cy="${Y(last[1])}" r="3.5" fill="#b3271e" stroke="#fffdf8" stroke-width="1.5"/>`;
+  s += `<text x="${Math.min(X(last[0]), W - padR)}" y="${Math.max(Y(last[1]) - 12, fsize + 2)}" fill="#211e1a" font-size="${mobile ? 17 : 13}" font-weight="700" text-anchor="end">${fmt(last[1])}回（累計）</text>`;
   s += `<g id="chartmark"></g>`;
   CHART = {W, H, padT, padB, mobile, X, Y, series: S, mode: "oricon"};
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
